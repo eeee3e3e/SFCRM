@@ -153,6 +153,7 @@
     <Content Include="Images\guanggao.png" />
     <Content Include="Images\overlay.png" />
     <Content Include="Images\topicLogo.jpg" />
+    <Content Include="Images\Upload\picture.png" />
     <Content Include="Scripts\CommonJs\affix.js" />
     <Content Include="Scripts\CommonJs\alert.js" />
     <Content Include="Scripts\CommonJs\bootstrap\js\bootstrap.js" />
@@ -194,7 +195,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\themes\base\images\" />
     <Folder Include="Content\themes\base\minified\images\" />
-    <Folder Include="Images\Upload\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
