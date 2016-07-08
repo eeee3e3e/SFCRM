@@ -58,6 +58,7 @@ namespace ShunFengCRM.UI.Controllers
 
         public ActionResult Advertisement()
         {
+            var imgStr = new ShunFengCRM.DAL.UserInfoRepository().GetAdverty();
             ViewBag.GuangGao = "/Images/guanggao.png";
             return View();
         }
