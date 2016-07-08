@@ -68,5 +68,10 @@ namespace ShunFengCRM.UI.Controllers
             //viewbag:
             return View();
         }
+
+        public ActionResult PersonalEdit()
+        {
+            return View();
+        }
     }
 }
