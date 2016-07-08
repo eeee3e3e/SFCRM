@@ -41,5 +41,10 @@ namespace ShunFengCRM.DAL
             }
             return true;
         }
+
+        public bool check()
+        {
+            return false;
+        }
     }
 }
