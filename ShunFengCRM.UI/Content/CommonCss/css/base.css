@@ -1,0 +1,48 @@
+/*width 100%*/
+.wholeLine
+{
+	width：100%;
+	
+}
+
+/*define float effect (inline) reduce float */
+.fl,.fr {
+    display:inline;
+}
+.fl {
+    float:left;
+}
+.fr {
+    float:right;
+}
+
+.font_bold
+{
+	font-weight: bold;
+	
+}
+
+.largeFont
+{
+	font-size:20px;
+}
+
+/*control the style of dropdownlist*/
+.ddl_div{
+    background: url('../Img/arrow.png') right center no-repeat; 
+   /* the width and the height of your image */
+    width: 100px;
+    height: 30px;
+    overflow: hidden;
+    border: solid 1px #cccc;
+}
+
+#ddl_style{
+    -webkit-appearance:none;
+    -moz-appearance:none; 
+    background:transparent;
+    border:none;
+    padding-left:10px;
+    width: 120px;
+    height:100%;    
+}
