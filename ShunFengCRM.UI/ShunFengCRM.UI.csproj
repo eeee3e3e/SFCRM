@@ -194,6 +194,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\themes\base\images\" />
     <Folder Include="Content\themes\base\minified\images\" />
+    <Folder Include="Images\Upload\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
