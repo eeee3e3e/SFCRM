@@ -1,0 +1,130 @@
+﻿
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+          "http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="XHRT">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>SF Logistics CRM system</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/CommonCss/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/CommonCss/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <!-- Custom css -->
+    <link href="~/Content/CommonCss/css/shared.css" rel="stylesheet">
+    <link href="~/Content/CommonCss/css/comb.css" rel="stylesheet">
+    <link href="~/Content/CommonCss/css/base.css" rel="stylesheet">
+    <!--cite javascript-->
+    <script type="text/javascript" src="~/Scripts/CommonJs/js/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/CommonJs/js/shared.js"></script>
+    <!-- Custom styles for this template -->
+    <!-- <link href="starter-template.css" rel="stylesheet"> -->
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!-- <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+
+</head>
+
+<body class="contextStyle">
+    <div class="container font_common wholeLine">
+        <div class="DefaultLine wholeLine" style="height:30px">
+            <div class="fl Font_Color_w bold vertical-center">
+                &nbsp;&nbsp;IDM用户
+            </div>
+            <div class="fr vertical-center"><a href="#" class="Font_Color_w bold " onclick="SysLogin('homeindex.html')">注销  &nbsp;&nbsp;  </a></div>
+        </div>
+        <div class="" style="height:15px">
+
+        </div>
+        <div class="DefaultLine wholeLine" style="height:100px">
+            <div class="fl" style="border:1px dotted #000;border-color:#999999; height:100px; width: 50%">
+                <div class="vertical-center Font_Color_w" style="text-align: center;font-size: 40px">91</div>
+            </div>
+            <div class="fl" style="border:1px dotted #000;border-color:#999999; height:100px; width:50%">
+                <table style="height: 100%; width: 100%">
+                    <tr style="height:20%">
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="rank_type.html" style="color: red">点击进度排名</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="Font_Color_w">
+                            <label id="lb_managerNum">66</label>位分部经理
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label id="lb_weeklyRanking" class="Font_Color_w">当前周排名</label>
+                        </td>
+                    </tr>
+                    <tr style="height:20%">
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="" style="clear:both;width:100%; font-size:20px; height:40px; text-align: center">
+                <label id="lb_user">狐狸</label> <a href="#">修改密码</a>
+            </div>
+            <div style="width:100%; height:200px; clear: both">
+                <table style="width:100%; border: solid 1px #999999">
+                    <tr class="colHeight">
+                        <td style="text-align: center ">
+                            <img class="vertical-center" onclick="SysLogin('visit_record_list.html')" src="../Img/sf_client_progress.jpg" style="width: 85px; height: 85px" />
+                            <div id="lb_customerProgress" style=" height 14px;">用户跟进</div>
+                        </td>
+                        <td style="text-align: center; border: solid 1px #999999">
+                            <img class="vertical-center" onclick="SysLogin('report_record_add.html')" src="../Img/sf_report.jpg" style="width: 85px; height: 85px" />
+                            <div id="lb_report" style=" height 14px;">
+                                开发汇报
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="colHeight">
+                        <td style="text-align: center">
+                            <img class="vertical-center" src="../Img/sf_status.jpg" onclick="SysLogin('status.html')" style="width: 85px; height: 85px" />
+                            <div id="lb_status" style=" height 14px;">
+                                状态提醒
+                            </div>
+                        </td>
+                        <td style="text-align: center; border: solid 1px #999999">
+                            <img class="vertical-center" onclick="alert('本功能即将开放')" src="../Img/sf_extension.jpg" style="width: 85px; height: 85px" />
+                            <div id="lb_new" style=" height 14px;">NEW</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!--
+            <div class="Font_Color_w fl" style="width:50%;text-align:center; bottom:50%; font-size:40px; height: 100px " >
+                91
+            </div>
+            <div class="fl ColorFrm fl" style="width:45%; font-size: 25px; border: 1px; ">
+                排名
+            </div>
+            -->
+        </div>
+
+
+    </div>
+    <div class="alignment-center font_common" style=" position:absolute;bottom:20px; left:10%; right:10%">Industry development and management</div>
+</body>
+<footer></footer>
+</html>

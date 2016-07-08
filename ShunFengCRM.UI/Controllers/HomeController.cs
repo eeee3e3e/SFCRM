@@ -61,5 +61,11 @@ namespace ShunFengCRM.UI.Controllers
             ViewBag.GuangGao = "/Images/guanggao.png";
             return View();
         }
+
+        public ActionResult mainfrm()
+        {
+            //viewbag:
+            return View();
+        }
     }
 }
