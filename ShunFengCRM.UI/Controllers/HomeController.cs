@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace ShunFengCRM.UI.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
@@ -23,9 +23,9 @@ namespace ShunFengCRM.UI.Controllers
         /// <returns></returns>
         public ActionResult Login(string loginName, string password)
         {
-            var userInfo = new ShunFengCRM.DAL.UserInfoRepository().GetUser(loginName, password);
+            var userId = new ShunFengCRM.DAL.UserInfoRepository().GetUser(loginName, password);
             ReturnData<string> data = null;
-            if (userInfo != null)
+            if (userId != null)
             {
                 data = new ReturnData<string>()
                {
@@ -36,7 +36,7 @@ namespace ShunFengCRM.UI.Controllers
                    WarnMessage = "成功",
                };
                 //增加cookie验证
-                Class.Tools.CookieHelper.SetCookie("userId", userInfo.UserId.ToString());
+                Class.Tools.CookieHelper.SetCookie("userId", userId.ToString());
             }
             else
             {
@@ -63,10 +63,18 @@ namespace ShunFengCRM.UI.Controllers
             return View();
         }
         [AuthenticationAttribute]
-        public ActionResult mainfrm()
+        public ActionResult Mainfrm()
         {
-            //viewbag:
             return View();
         }
+        public ActionResult MainfrmAjax()
+        {
+            var userInfo = new ShunFengCRM.DAL.UserInfoRepository().GetUserInfo(base.UserId);
+            var typeName = new ShunFengCRM.DAL.UserTypeRepository().GetUserTypeName(userInfo.UserType);
+            var typeCount = new ShunFengCRM.DAL.UserInfoRepository().GetUserTypeCount(userInfo.UserType);
+            var sorting=new ShunFengCRM.DAL.VisitReportRepository().GetUserRank(UserId,userInfo.UserType,DateTime.Now)
+            return View();
+        }
+
     }
 }

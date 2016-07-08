@@ -8,10 +8,25 @@ namespace ShunFengCRM.DTO.Enum
 {
     public enum UserType
     {
-        a = 1,
-        b = 2,
-        c = 3,
-        d = 4,
-        e = 5,
+        /// <summary>
+        /// 分部经理
+        /// </summary>
+        DivisionManager = 1,
+        /// <summary>
+        /// 业务主管
+        /// </summary>
+        Executive = 2,
+        /// <summary>
+        /// 点部主管
+        /// </summary>
+        Director = 3,
+        /// <summary>
+        /// 收派员
+        /// </summary>
+        Courier = 4,
+        /// <summary>
+        /// 销售人员
+        /// </summary>
+        Salesperson = 5,
     }
 }

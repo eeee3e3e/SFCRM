@@ -125,8 +125,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Class\AuthenticationAttribute.cs" />
     <Compile Include="Class\Tools\CookieHelper.cs" />
+    <Compile Include="Class\Tools\DateTimeHelper.cs" />
     <Compile Include="Class\UserFactory.cs" />
     <Compile Include="Class\UserModel.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -151,8 +153,13 @@
     <Content Include="Content\CommonCss\bootstrap\css\bootstrap-theme.css.map" />
     <Content Include="Content\CommonCss\bootstrap\css\bootstrap.css.map" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
+    <Content Include="Images\arrow.png" />
     <Content Include="Images\guanggao.png" />
     <Content Include="Images\overlay.png" />
+    <Content Include="Images\sf_client_progress.jpg" />
+    <Content Include="Images\sf_extension.jpg" />
+    <Content Include="Images\sf_report.jpg" />
+    <Content Include="Images\sf_status.jpg" />
     <Content Include="Images\topicLogo.jpg" />
     <Content Include="Images\Upload\picture.png" />
     <Content Include="Scripts\CommonJs\affix.js" />
