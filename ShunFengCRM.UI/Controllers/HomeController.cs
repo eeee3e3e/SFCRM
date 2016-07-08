@@ -55,14 +55,18 @@ namespace ShunFengCRM.UI.Controllers
         {
             return View();
         }
-
+        [AuthenticationAttribute]
         public ActionResult Advertisement()
         {
             var imgStr = new ShunFengCRM.DAL.AdvertyRepository().GetAdverty();
             ViewBag.GuangGao = imgStr;
             return View();
         }
-
-
+        [AuthenticationAttribute]
+        public ActionResult mainfrm()
+        {
+            //viewbag:
+            return View();
+        }
     }
 }
