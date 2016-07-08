@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace ShunFengCRM.DAL
         public DTO.UserInfo GetUser(string loginName, string password)
         {
             var sqlStr = "select F_ID,F_Username,F_Password ,F_TypeID,F_DistrictCode from T_UserInfo where F_Username=@loginName and F_Password=@password";
-            SqlParameter[] parms = 
+            SqlParameter[] parms =
             {
                 new SqlParameter("@loginName",loginName),
                 new SqlParameter("@password",password),
@@ -29,7 +30,7 @@ namespace ShunFengCRM.DAL
         public bool GetUser(int userId)
         {
             var sqlStr = "select F_ID,F_Username,F_Password ,F_TypeID,F_DistrictCode from T_UserInfo where F_ID=@userId";
-            SqlParameter[] parms = 
+            SqlParameter[] parms =
             {
                 new SqlParameter("@userId",userId),
             };
@@ -53,5 +54,21 @@ namespace ShunFengCRM.DAL
             }
             return rows[0].ItemArray[0].ToString();
         }
+
+
+        public IList<string> fwr()
+        {
+            var results = new List<string>();
+            var sqlStr = "SELECT TOP 2 [F_AdUrl] FROM [SF_CRM].[dbo].[T_Advertise]";
+            var result = new Tools.SqlHelper().ExecuteQuery(sqlStr, System.Data.CommandType.Text);
+            var rows = result.Rows;
+            foreach (DataRow item in rows)
+            {
+                results.Add(item.ItemArray[0].ToString());
+            }
+            return results;
+        }
+
+
     }
 }
