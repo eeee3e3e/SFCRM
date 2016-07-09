@@ -18,7 +18,7 @@ select t3.F_StaffID,t3.VisitCount,row_number()over(ORDER BY VisitCount desc) as 
 select * from T_UserInfo where F_TypeID=@typeID) as t2 inner join(
 select F_StaffID,Count(*) as VisitCount  from (
 
-select F_ID,F_StaffID from dbo.T_VisitReport where F_VisitDate>=@visitDate and F_VisitDate<=@endDate
+select F_ID,F_StaffID from dbo.T_VisitReport where F_VisitDate>=@visitDate and F_VisitDate<@endDate
 ) as t1  group by  F_StaffID) as t3 on t2.F_ID=t3.F_StaffID) as t4 where t4.F_StaffID=@userId";
 
             SqlParameter[] parms = 
@@ -68,7 +68,7 @@ select F_ID,F_StaffID from dbo.T_VisitReport where F_VisitDate>=@visitDate and F
 
         public int TodayVisitCustomer(int userId)
         {
-            var sqlStr = "SELECT Count(*) as VisitCount FROM [SF_CRM].[dbo].[T_VisitReport] where F_VisitDate>='@today' and F_StaffID=@userId";
+            var sqlStr = "SELECT Count(*) as VisitCount FROM [SF_CRM].[dbo].[T_VisitReport] where F_VisitDate>=@today and F_StaffID=@userId";
 
             SqlParameter[] parms = 
             {
@@ -86,7 +86,7 @@ select F_ID,F_StaffID from dbo.T_VisitReport where F_VisitDate>=@visitDate and F
 
         public int OneMonthNewSign(int userId, DateTime startDate, DateTime endDate)
         {
-            var sqlStr = "SELECT Count(*) FROM [SF_CRM].[dbo].[T_VisitReport] where F_PhraseID=3 and F_VisitKindID=1 and F_StaffID=@userId and F_VisitDate>=@startDate and F_VisitDate<=@endDate";
+            var sqlStr = "SELECT Count(*) FROM [SF_CRM].[dbo].[T_VisitReport] where F_PhraseID=3 and F_VisitKindID=1 and F_StaffID=@userId and F_VisitDate>=@startDate and F_VisitDate<@endDate";
             SqlParameter[] parms = 
             {
                 new SqlParameter("@startDate",startDate),
@@ -104,7 +104,7 @@ select F_ID,F_StaffID from dbo.T_VisitReport where F_VisitDate>=@visitDate and F
 
         public int OneMonthVisitCount(int userId, DateTime startDate, DateTime endDate)
         {
-            var sqlStr = "SELECT Count(*) FROM [SF_CRM].[dbo].[T_VisitReport] where F_StaffID=@userId and F_VisitDate>=@startDate and F_VisitDate<=@endDate";
+            var sqlStr = "SELECT Count(*) FROM [SF_CRM].[dbo].[T_VisitReport] where F_StaffID=@userId and F_VisitDate>=@startDate and F_VisitDate<@endDate";
             SqlParameter[] parms = 
             {
                 new SqlParameter("@startDate",startDate),

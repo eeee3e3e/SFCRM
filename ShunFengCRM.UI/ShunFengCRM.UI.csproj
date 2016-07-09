@@ -136,6 +136,8 @@
     </Compile>
     <Compile Include="Models\ReturnData.cs" />
     <Compile Include="Models\ReturnType.cs" />
+    <Compile Include="Models\ReturnUserInfo.cs" />
+    <Compile Include="Models\UserReportInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

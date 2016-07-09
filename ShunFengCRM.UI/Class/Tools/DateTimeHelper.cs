@@ -36,5 +36,11 @@ namespace ShunFengCRM.UI.Class.Tools
             }
             return returnData.Date;
         }
+
+
+        public static DateTime GetThisMonthFist(DateTime time)
+        {
+            return new DateTime(time.Year, time.Month, 1);
+        }
     }
 }

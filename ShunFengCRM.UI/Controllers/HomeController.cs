@@ -107,7 +107,7 @@ namespace ShunFengCRM.UI.Controllers
         public ActionResult PersonalEditAjax(string strPassword)
         {
             var strID = Class.Tools.CookieHelper.GetCookie("userId");
-            
+
             var userInfo = new ShunFengCRM.DAL.UserInfoRepository().EditUser(strID, strPassword);
             ReturnData<string> data = null;
 
@@ -144,6 +144,31 @@ namespace ShunFengCRM.UI.Controllers
         public ActionResult StatusReminder()
         {
             return View();
+        }
+
+        public ActionResult StatusReminderAjax()
+        {
+            var visitReportRepository = new DAL.VisitReportRepository();
+            var startTime = Class.Tools.DateTimeHelper.GetThisMonthFist(DateTime.Now);
+            var endTime = Class.Tools.DateTimeHelper.GetThisMonthFist(DateTime.Now.AddMonths(1));
+            var userReportInfo = new UserReportInfo()
+            {
+
+                OneMonthNewSign = visitReportRepository.OneMonthNewSign(base.UserId, startTime, endTime),
+                OneMonthVisiCount = visitReportRepository.OneMonthVisitCount(base.UserId, startTime, endTime),
+                OneMonthVisitSort = visitReportRepository.GetUserRank(base.UserId, base.UserType, startTime, endTime),
+                TodayVisitCount = visitReportRepository.TodayVisitCustomer(base.UserId),
+                VisitReportRqCount = visitReportRepository.VisitReportRqCount(base.UserId),
+                VisitCount = visitReportRepository.VisitCount(base.UserId),
+            };
+            var data = new ReturnData<UserReportInfo>()
+            {
+                Data = userReportInfo,
+                ErrorMessage = "成功",
+                ReturnType = ReturnType.Success,
+                WarnMessage = "成功",
+            };
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -37,7 +37,23 @@
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript">
-
+        $(function () {
+            initData();
+        });
+        function initData() {
+            $.post("/Home/StatusReminderAjax", null, function (returnData) {
+                if (returnData.ReturnTypeStr == "Success") {
+                    $('#OneMonthNewSign').html(returnData.Data.OneMonthNewSign);
+                    $('#OneMonthVisiCount').html(returnData.Data.OneMonthVisiCount);
+                    $('#OneMonthVisitSort').html(returnData.Data.OneMonthVisitSort);
+                    $('#TodayVisitCount').html(returnData.Data.TodayVisitCount);
+                    $('#VisitReportRqCount').html(returnData.Data.VisitReportRqCount);
+                    $('#VisitCount').html(returnData.Data.VisitCount);
+                    return false;
+                }
+                alert(returnData.WarnMessage);
+            })
+        }
     </script>
 
 
@@ -56,7 +72,7 @@
         </div>
         <div class="DefaultLine wholeLine" style="height:100px">
             <div class="fl" style="border:1px dotted #000;border-color:#999999; height:100px; width: 50%">
-                <div class="vertical-center Font_Color_w" style="text-align: center;font-size: 40px">91</div>
+                <div class="vertical-center Font_Color_w" style="text-align: center;font-size: 40px"><label id="TodayVisitCount"></label></div>
             </div>
             <div class="fl" style="border:1px dotted #000;border-color:#999999; height:100px; width:50%">
                 <table style="height: 100%; width: 100%">
@@ -79,13 +95,13 @@
                         <td style="text-align: center; font-size: 18px">
                             当月拜访
                             <div id="lb_customerProgress" style=" height 14px;">
-                                12
+                                <label id="OneMonthVisiCount"></label>
                             </div>
                         </td>
                         <td style="text-align: center;font-size: 18px; border: solid 1px #999999">
                             当月新签
                             <div id="lb_report" style=" height 14px;">
-                                34
+                                <label id="OneMonthNewSign"></label>
                             </div>
                         </td>
                     </tr>
@@ -93,13 +109,13 @@
                         <td style="text-align: center;font-size: 18px">
                             提报需求
                             <div id="lb_status" style=" height 14px;">
-                                56
+                                <label id="VisitReportRqCount"></label>
                             </div>
                         </td>
                         <td style="text-align: center; border: solid 1px #999999;font-size: 18px">
                             当月排名
                             <div id="lb_new" style=" height 14px;">
-                                78
+                                <label id="OneMonthVisitSort"></label>
                             </div>
                         </td>
                     </tr>
@@ -116,7 +132,7 @@
                         <td bgcolor="#FFFFFF" style="font-size: 18px">
                             拜访总量:
                             <div class="vertical-center " style="text-align: center;font-size: 40px; bold; color: blue">
-                                120
+                                <label id="VisitCount"></label>
                             </div>
                         </td>
                     </tr>
