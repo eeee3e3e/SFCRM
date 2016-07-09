@@ -49,10 +49,10 @@ namespace ShunFengCRM.DAL
         public UserInfo GetUserInfo(int userId)
         {
             var sqlStr = @"select t1.F_ID,t1.F_Name,t2.F_Username,t2.F_TypeID from (
-SELECT *
-  FROM T_UserDetail where F_ID=@userId) as t1 inner join ( 
-SELECT *
-  FROM T_UserInfo where F_ID=@userId) as t2 on t1.F_ID=t2.F_ID";
+            SELECT *
+              FROM T_UserDetail where F_ID=@userId) as t1 inner join ( 
+            SELECT *
+              FROM T_UserInfo where F_ID=@userId) as t2 on t1.F_ID=t2.F_ID";
             SqlParameter[] parms = 
             {
                 new SqlParameter("@userId",userId),
@@ -90,7 +90,20 @@ SELECT *
 
         public bool EditUser(int strID, string strPassword)
         {
-            return true;
+            var sqlStr = "update T_UserInfo set f_password=@strPassword where f_id=@strUserID";
+            SqlParameter[] parms =
+            {
+                new SqlParameter("@strUserID",strID),
+                new SqlParameter("@strPassword",strPassword),
+            };
+            var result = new Tools.SqlHelper().ExecuteNonQuery(sqlStr, parms, System.Data.CommandType.Text);
+
+            if (result >= 1)
+            {
+                return true;
+            }
+            else
+                return false;
         }
 
 
