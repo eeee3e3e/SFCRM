@@ -14,5 +14,8 @@ namespace ShunFengCRM.DTO
         public string LoginName { get; set; }
 
         public UserType UserType { get; set; }
+
+        public string UserName { get; set; }
+
     }
 }

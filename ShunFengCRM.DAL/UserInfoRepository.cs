@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ShunFengCRM.DTO;
+using ShunFengCRM.DTO.Enum;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,9 +12,9 @@ namespace ShunFengCRM.DAL
 {
     public class UserInfoRepository
     {
-        public DTO.UserInfo GetUser(string loginName, string password)
+        public Nullable<int> GetUser(string loginName, string password)
         {
-            var sqlStr = "select F_ID,F_Username,F_Password ,F_TypeID,F_DistrictCode from T_UserInfo where F_Username=@loginName and F_Password=@password";
+            var sqlStr = "select F_ID from T_UserInfo where F_Username=@loginName and F_Password=@password";
             SqlParameter[] parms = 
             {
                 new SqlParameter("@loginName",loginName),
@@ -24,7 +26,7 @@ namespace ShunFengCRM.DAL
             {
                 return null;
             }
-            return new DTO.UserInfo() { LoginName = rows[0].ItemArray[1].ToString(), UserId = Convert.ToInt32(rows[0].ItemArray[0].ToString()), UserType = (DTO.Enum.UserType)Convert.ToInt32(rows[0].ItemArray[3].ToString()) };
+            return Convert.ToInt32(rows[0].ItemArray[0].ToString());
         }
 
         public bool GetUser(int userId)
@@ -43,34 +45,49 @@ namespace ShunFengCRM.DAL
             return true;
         }
 
-        #region 修改用户密码
-        /// <summary>
-        /// modify user password
-        /// </summary>
-        /// <param name="strUsername">用户名</param>
-        /// <param name="strPassword">密码</param>
-        /// <returns></returns>
-        public bool EditUser(int strId, string strPassword)
+        public UserInfo GetUserInfo(int userId)
         {
-            var sqlStr = "update T_UserInfo set f_password ='@strPassword' where f_username = @strId";
-            SqlParameter[] parms =
+            var sqlStr = @"select t1.F_ID,t1.F_Name,t2.F_Username,t2.F_TypeID from (
+SELECT *
+  FROM T_UserDetail where F_ID=@userId) as t1 inner join ( 
+SELECT *
+  FROM T_UserInfo where F_ID=@userId) as t2 on t1.F_ID=t2.F_ID";
+            SqlParameter[] parms = 
             {
-                new SqlParameter("@strId",strId),
-                new SqlParameter("@strPassword",strPassword)
+                new SqlParameter("@userId",userId),
             };
-
-            var result=new Tools.SqlHelper().ExecuteNonQuery(sqlStr, parms, System.Data.CommandType.Text);
-
-            if (result != 0)
+            var result = new Tools.SqlHelper().ExecuteQuery(sqlStr, parms, System.Data.CommandType.Text);
+            var rows = result.Rows;
+            if (rows.Count != 1)
             {
-                return true;
+                return null;
             }
-            else
+            return new UserInfo()
             {
-                return false;
-            }
-
+                LoginName = rows[0].ItemArray[2].ToString(),
+                UserId = Convert.ToInt32(rows[0].ItemArray[0].ToString()),
+                UserName = rows[0].ItemArray[1].ToString(),
+                UserType = (DTO.Enum.UserType)Convert.ToInt32(rows[0].ItemArray[3].ToString())
+            };
         }
-        #endregion
+
+        public int GetUserTypeCount(UserType userType)
+        {
+            var sqlStr = "SELECT Count(*) as SumCount FROM [SF_CRM].[dbo].[T_UserInfo] where F_TypeID=@userType";
+            SqlParameter[] parms = 
+            {
+                new SqlParameter("@userType",(int)userType),
+            };
+            var result = new Tools.SqlHelper().ExecuteQuery(sqlStr, parms, System.Data.CommandType.Text);
+            var rows = result.Rows;
+            if (rows.Count != 1)
+            {
+                return 0;
+            }
+            return Convert.ToInt32(rows[0].ItemArray[0].ToString());
+        }
+
+
+
     }
 }

@@ -125,8 +125,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Class\AuthenticationAttribute.cs" />
     <Compile Include="Class\Tools\CookieHelper.cs" />
+    <Compile Include="Class\Tools\DateTimeHelper.cs" />
     <Compile Include="Class\UserFactory.cs" />
     <Compile Include="Class\UserModel.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
