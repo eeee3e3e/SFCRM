@@ -151,8 +151,13 @@
     <Content Include="Content\CommonCss\bootstrap\css\bootstrap-theme.css.map" />
     <Content Include="Content\CommonCss\bootstrap\css\bootstrap.css.map" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
+    <Content Include="Images\arrow.png" />
     <Content Include="Images\guanggao.png" />
     <Content Include="Images\overlay.png" />
+    <Content Include="Images\sf_client_progress.jpg" />
+    <Content Include="Images\sf_extension.jpg" />
+    <Content Include="Images\sf_report.jpg" />
+    <Content Include="Images\sf_status.jpg" />
     <Content Include="Images\topicLogo.jpg" />
     <Content Include="Images\Upload\picture.png" />
     <Content Include="Scripts\CommonJs\affix.js" />
@@ -192,6 +197,7 @@
     <Content Include="Views\Home\SuccessLogin.cshtml" />
     <Content Include="Views\Home\Advertisement.cshtml" />
     <Content Include="Views\Home\mainfrm.cshtml" />
+    <Content Include="Views\Home\PersonalEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

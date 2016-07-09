@@ -42,5 +42,35 @@ namespace ShunFengCRM.DAL
             }
             return true;
         }
+
+        #region 修改用户密码
+        /// <summary>
+        /// modify user password
+        /// </summary>
+        /// <param name="strUsername">用户名</param>
+        /// <param name="strPassword">密码</param>
+        /// <returns></returns>
+        public bool EditUser(int strId, string strPassword)
+        {
+            var sqlStr = "update T_UserInfo set f_password ='@strPassword' where f_username = @strId";
+            SqlParameter[] parms =
+            {
+                new SqlParameter("@strId",strId),
+                new SqlParameter("@strPassword",strPassword)
+            };
+
+            var result=new Tools.SqlHelper().ExecuteNonQuery(sqlStr, parms, System.Data.CommandType.Text);
+
+            if (result != 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        #endregion
     }
 }
