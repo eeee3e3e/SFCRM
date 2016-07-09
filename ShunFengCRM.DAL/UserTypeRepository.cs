@@ -12,7 +12,7 @@ namespace ShunFengCRM.DAL
     {
         public string GetUserTypeName(UserType userType)
         {
-            var sqlStr = "SELECT Count(*) as SumCount FROM T_UserType where F_TypeID=@userType";
+            var sqlStr = "SELECT F_Name FROM T_UserType where F_TypeID=@userType";
             SqlParameter[] parms = 
             {
                 new SqlParameter("@userType",(int)userType),
