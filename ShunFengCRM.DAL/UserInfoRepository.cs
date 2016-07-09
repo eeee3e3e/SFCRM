@@ -87,6 +87,10 @@ SELECT *
             return Convert.ToInt32(rows[0].ItemArray[0].ToString());
         }
 
+        public bool EditUser(int strID, string strPassword)
+        {
+            return true;
+        }
 
 
     }
