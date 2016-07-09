@@ -50,6 +50,8 @@ namespace ShunFengCRM.UI.Controllers
             }
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+
+
         [AuthenticationAttribute]
         public ActionResult SuccessLogin()
         {
@@ -69,9 +71,41 @@ namespace ShunFengCRM.UI.Controllers
             return View();
         }
 
-        public ActionResult PersonalEdit()
+        public ActionResult PersonalEdit(string strPassword)
         {
-            return View();
+            var strID = Class.Tools.CookieHelper.GetCookie("userId");
+            strID = 1;
+            var userInfo = new ShunFengCRM.DAL.UserInfoRepository().EditUser(strID, strPassword);
+            ReturnData<string> data = null;
+
+            
+            if (userInfo)
+            {
+                //edit successful
+                data = new ReturnData<string>
+                {
+                    Data = "/home/mainfrm.",
+                    ErrorMessage = "成功",
+                    ReturnType = ReturnType.Success,
+                    WarnMessage = "成功",
+                };
+                
+            }
+            else
+            {
+                //edit fail
+                data = new ReturnData<string>
+                {
+                    Data = "/home/PersonalEdit",
+                    ErrorMessage = "失败",
+                    ReturnType = ReturnType.Fail,
+                    WarnMessage = "失败",
+                };
+                
+            }
+
+            // return json data
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }
