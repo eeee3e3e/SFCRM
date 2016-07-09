@@ -28,9 +28,5 @@ namespace ShunFengCRM.DTO
 
         public DateTime VisitDate { get; set; }
 
-        public int RqID { get; set; }
-
-        public string Remark { get; set; }
-
     }
 }
