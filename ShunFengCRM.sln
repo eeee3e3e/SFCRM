@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShunFengCRM.BLL", "ShunFengCRM.BLL\ShunFengCRM.BLL.csproj", "{2B3BBFCB-4B6F-4FAC-BCE0-C37E6DAE1FAE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShunFengCRM.DAL", "ShunFengCRM.DAL\ShunFengCRM.DAL.csproj", "{C9136B76-37BF-459C-A1DC-261B6E7624C1}"

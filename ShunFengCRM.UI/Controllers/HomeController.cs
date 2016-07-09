@@ -75,7 +75,27 @@ namespace ShunFengCRM.UI.Controllers
             var typeName = new ShunFengCRM.DAL.UserTypeRepository().GetUserTypeName(userInfo.UserType);
             var typeCount = new ShunFengCRM.DAL.UserInfoRepository().GetUserTypeCount(userInfo.UserType);
             var sorting = new ShunFengCRM.DAL.VisitReportRepository().GetUserRank(UserId, userInfo.UserType, Class.Tools.DateTimeHelper.GetThisWeekMonday(DateTime.Now));
-            return View();
+            var userData = new ReturnUserInfo()
+            {
+                CurrentWeekSort = sorting,
+                LoginName = userInfo.LoginName,
+                UserID = userInfo.UserId,
+                UserName = userInfo.UserName,
+            };
+            var anonymousData = new
+            {
+                UserInfo = userData,
+                TypeNameSumStr = string.Format("{0}位{1}", typeCount, typeName),
+            };
+            var data = new ReturnData<Object>()
+            {
+                ErrorMessage = "成功",
+                ReturnType = ReturnType.Success,
+                WarnMessage = "成功",
+                Data = anonymousData,
+            };
+
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult PersonalEdit(string strPassword)
@@ -85,7 +105,7 @@ namespace ShunFengCRM.UI.Controllers
             var userInfo = new ShunFengCRM.DAL.UserInfoRepository().EditUser(strID, strPassword);
             ReturnData<string> data = null;
 
-            
+
             if (userInfo)
             {
                 //edit successful
@@ -96,7 +116,7 @@ namespace ShunFengCRM.UI.Controllers
                     ReturnType = ReturnType.Success,
                     WarnMessage = "成功",
                 };
-                
+
             }
             else
             {
@@ -108,11 +128,16 @@ namespace ShunFengCRM.UI.Controllers
                     ReturnType = ReturnType.Fail,
                     WarnMessage = "失败",
                 };
-                
+
             }
 
             // return json data
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult StatusReminder()
+        {
+            return View();
         }
     }
 }
