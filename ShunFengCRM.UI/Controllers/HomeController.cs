@@ -78,10 +78,16 @@ namespace ShunFengCRM.UI.Controllers
             return View();
         }
 
-        public ActionResult PersonalEdit(string strPassword)
+        public ActionResult PersonalEdit()
+        {
+            return View();
+        }
+
+
+        public ActionResult PersonalEditAjax(string strPassword)
         {
             var strID = Class.Tools.CookieHelper.GetCookie("userId");
-            strID = 1;
+            
             var userInfo = new ShunFengCRM.DAL.UserInfoRepository().EditUser(strID, strPassword);
             ReturnData<string> data = null;
 
@@ -91,7 +97,7 @@ namespace ShunFengCRM.UI.Controllers
                 //edit successful
                 data = new ReturnData<string>
                 {
-                    Data = "/home/mainfrm.",
+                    Data = "/home/Mainfrm",
                     ErrorMessage = "成功",
                     ReturnType = ReturnType.Success,
                     WarnMessage = "成功",
