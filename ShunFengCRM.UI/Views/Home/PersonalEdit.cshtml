@@ -37,7 +37,69 @@
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript">
+        $(function () {
+            textClear();
+            btn_Logout();
+            btn_Login();
+        })
+        //赵凯，2016.07.06，清空text内容
+        function textClear() {
+            $("input[type='text']").focus(
+                function () {
+                    $(this).val("");
+                });
+        }
 
+        //赵凯，2016.07.06，模拟表单请求
+        function SimulationFormRequest() {
+            var txt_ps = $("#txt_ps").val(); //acquire the password
+            var txt_ps_confirmation = $("#txt_ps_confirmation").val();
+
+            //get information from cookie
+            var txt_us =
+
+            checkPs(txt_ps, txt_ps_confirmation);
+
+            var data = {
+                //strUsername: txt_us,
+                strPassword: txt_ps_confirmation,
+            }
+
+            $.post("/home/PersonalEdit", data, function (returnData) {
+                if (returnData.ReturnTypeStr == "Success") {
+                    window.location.href = returnData.Data;
+                    return true;
+                }
+                else
+                {
+                    alert(returnData.WarnMessage);
+                }
+
+            })
+        }
+
+        function checkPs(strPs,strPsComfirmation)
+        {
+            if (strPs != StrPsComfirmation)
+            {
+                alert("2次密码输入不匹配，请重新输入");
+                return false;
+            }
+            
+            return true;
+        }
+
+        function btn_Login() {
+            $('#btn_Login').click(function () {
+                SimulationFormRequest();
+            })
+        }
+
+        function btn_Logout() {
+            $('#btn_Logout').click(function () {
+                window.close();
+            })
+        }
     </script>
 
 
@@ -96,7 +158,7 @@
                         密码修改：
                     </td>
                     <td style="text-align: center; border: solid 1px #999999">
-                        <input type="text" class="txtbox">
+                        <input id="txt_ps" type="text" class="txtbox">
                     </td>
                 </tr>
                 <tr class="colMinHeight">
@@ -104,7 +166,7 @@
                         密码确认：
                     </td>
                     <td style="text-align: center; border: solid 1px #999999">
-                        <input type="text" class="txtbox">
+                        <input id="txt_ps_confirmation" type="text" class="txtbox">
                     </td>
                 </tr>
             </table>
