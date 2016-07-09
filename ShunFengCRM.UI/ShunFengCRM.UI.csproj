@@ -199,6 +199,7 @@
     <Content Include="Views\Home\SuccessLogin.cshtml" />
     <Content Include="Views\Home\Advertisement.cshtml" />
     <Content Include="Views\Home\mainfrm.cshtml" />
+    <Content Include="Views\Home\PersonalEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
