@@ -74,7 +74,7 @@ namespace ShunFengCRM.UI.Controllers
             var userInfo = new ShunFengCRM.DAL.UserInfoRepository().GetUserInfo(base.UserId);
             var typeName = new ShunFengCRM.DAL.UserTypeRepository().GetUserTypeName(userInfo.UserType);
             var typeCount = new ShunFengCRM.DAL.UserInfoRepository().GetUserTypeCount(userInfo.UserType);
-            var sorting = new ShunFengCRM.DAL.VisitReportRepository().GetUserRank(UserId, userInfo.UserType, Class.Tools.DateTimeHelper.GetThisWeekMonday(DateTime.Now));
+            var sorting = new ShunFengCRM.DAL.VisitReportRepository().GetUserRank(UserId, userInfo.UserType, Class.Tools.DateTimeHelper.GetThisWeekMonday(DateTime.Now), DateTime.Now);
             var userData = new ReturnUserInfo()
             {
                 CurrentWeekSort = sorting,
