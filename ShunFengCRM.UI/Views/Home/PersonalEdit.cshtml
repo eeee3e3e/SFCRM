@@ -37,10 +37,13 @@
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript">
+        function btn_Login()
+        {
+            SimulationFormRequest();
+        }
         $(function () {
-            textClear();
-            btn_Logout();
-            btn_Login();
+            //btn_Logout();
+            // btn_Modify();
         })
         //赵凯，2016.07.06，清空text内容
         function textClear() {
@@ -56,7 +59,7 @@
             var txt_ps_confirmation = $("#txt_ps_confirmation").val();
 
             //get information from cookie
-            var txt_us =
+            //var txt_us =
 
             checkPs(txt_ps, txt_ps_confirmation);
 
@@ -65,14 +68,17 @@
                 strPassword: txt_ps_confirmation,
             }
 
-            $.post("/home/PersonalEdit", data, function (returnData) {
+            $.post("/Home/PersonalEditAjax", data, function (returnData) {
                 if (returnData.ReturnTypeStr == "Success") {
+                    alert("密码修改成功");
                     window.location.href = returnData.Data;
                     return true;
                 }
                 else
                 {
+                    alert("修改出错");
                     alert(returnData.WarnMessage);
+                    return false;
                 }
 
             })
@@ -80,20 +86,24 @@
 
         function checkPs(strPs,strPsComfirmation)
         {
-            if (strPs != StrPsComfirmation)
-            {
-                alert("2次密码输入不匹配，请重新输入");
-                return false;
+            if (strPs || strPsComfirmation != "") {
+                if (strPs != strPsComfirmation) {
+                    alert("2次密码输入不匹配，请重新输入");
+                    return false;
+                }
+                else {
+
+                    return true;
+                }
             }
-            
-            return true;
+            else
+            {
+                alert("用户密码不能为空.");
+            }
         }
 
-        function btn_Login() {
-            $('#btn_Login').click(function () {
-                SimulationFormRequest();
-            })
-        }
+
+     
 
         function btn_Logout() {
             $('#btn_Logout').click(function () {
@@ -175,7 +185,7 @@
         </div>
         <div class="Absolute-Center">
             <div id="btn_Modify" style="float: left">
-                <input type="button" class="button blue" value="完 成" />
+                <input id="btnModify" type="button" class="button blue" onclick="btn_Login()" value="完 成" />
             </div>
 
             <div id="btn_PlaceHolderLength" style="width:15px; float: left">

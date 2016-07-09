@@ -173,6 +173,7 @@
     <Content Include="Scripts\CommonJs\dropdown.js" />
     <Content Include="Scripts\CommonJs\js\jquery-3.0.0.min.js" />
     <Content Include="Scripts\CommonJs\js\login.js" />
+    <Content Include="Scripts\CommonJs\js\shared.js" />
     <Content Include="Scripts\CommonJs\modal.js" />
     <Content Include="Scripts\CommonJs\popover.js" />
     <Content Include="Scripts\CommonJs\scrollspy.js" />
@@ -200,6 +201,7 @@
     <Content Include="Views\Home\Advertisement.cshtml" />
     <Content Include="Views\Home\mainfrm.cshtml" />
     <Content Include="Views\Home\PersonalEdit.cshtml" />
+    <Content Include="Views\Home\StatusReminder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
