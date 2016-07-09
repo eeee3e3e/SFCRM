@@ -29,6 +29,7 @@ namespace ShunFengCRM.DAL
             return Convert.ToInt32(rows[0].ItemArray[0].ToString());
         }
 
+
         public bool GetUser(int userId)
         {
             var sqlStr = "select F_ID,F_Username,F_Password ,F_TypeID,F_DistrictCode from T_UserInfo where F_ID=@userId";
