@@ -104,11 +104,11 @@ namespace ShunFengCRM.UI.Controllers
         }
 
 
-        public ActionResult PersonalEditAjax(string strPassword)
+        public ActionResult PersonalEditAjax()
         {
             var strID = Class.Tools.CookieHelper.GetCookie("userId");
             
-            var userInfo = new ShunFengCRM.DAL.UserInfoRepository().EditUser(strID, strPassword);
+            var userInfo = new ShunFengCRM.DAL.UserInfoRepository().GetUser(strID);
             ReturnData<string> data = null;
 
 
@@ -140,6 +140,45 @@ namespace ShunFengCRM.UI.Controllers
             // return json data
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+
+        //bind personal information
+        public void BindingPersonalInfo()
+        {
+            var strID = Class.Tools.CookieHelper.GetCookie("userId");
+            //return userinfo
+            var userInfo = new ShunFengCRM.DAL.UserInfoRepository().GetUserInfo(strID);
+            ReturnData<string> data = null;
+
+
+            if (userInfo)
+            {
+                //edit successful
+                data = new ReturnData<string>
+                {
+                    Data = "/home/Mainfrm",
+                    ErrorMessage = "成功",
+                    ReturnType = ReturnType.Success,
+                    WarnMessage = "成功",
+                };
+
+            }
+            else
+            {
+                //edit fail
+                data = new ReturnData<string>
+                {
+                    Data = "/home/PersonalEdit",
+                    ErrorMessage = "失败",
+                    ReturnType = ReturnType.Fail,
+                    WarnMessage = "失败",
+                };
+
+            }
+
+            // return json data
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
 
         public ActionResult StatusReminder()
         {
