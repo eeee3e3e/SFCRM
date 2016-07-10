@@ -1,4 +1,5 @@
 ﻿using ShunFengCRM.UI.Class;
+using ShunFengCRM.UI.Class.Tools;
 using ShunFengCRM.UI.Models;
 using System;
 using System.Collections.Generic;
@@ -142,20 +143,20 @@ namespace ShunFengCRM.UI.Controllers
         }
 
         //bind personal information
-        public void BindingPersonalInfo()
+        public  ActionResult BindingPersonalInfo()
         {
             var strID = Class.Tools.CookieHelper.GetCookie("userId");
             //return userinfo
-            var userInfo = new ShunFengCRM.DAL.UserInfoRepository().GetUserInfo(strID);
+            var userInfo = new ShunFengCRM.DAL.UserInfoRepository().GetUserBasicInfo(strID);
             ReturnData<string> data = null;
 
 
-            if (userInfo)
+            if (userInfo!=null)
             {
                 //edit successful
                 data = new ReturnData<string>
                 {
-                    Data = "/home/Mainfrm",
+                    Data = JsonConverter.ObjectToJson(userInfo),
                     ErrorMessage = "成功",
                     ReturnType = ReturnType.Success,
                     WarnMessage = "成功",
@@ -167,7 +168,7 @@ namespace ShunFengCRM.UI.Controllers
                 //edit fail
                 data = new ReturnData<string>
                 {
-                    Data = "/home/PersonalEdit",
+                    Data = null,
                     ErrorMessage = "失败",
                     ReturnType = ReturnType.Fail,
                     WarnMessage = "失败",

@@ -1,5 +1,6 @@
 ﻿using ShunFengCRM.DTO;
 using ShunFengCRM.DTO.Enum;
+using ShunFengCRM.UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace ShunFengCRM.DAL
 {
@@ -71,6 +73,39 @@ namespace ShunFengCRM.DAL
                 UserType = (DTO.Enum.UserType)Convert.ToInt32(rows[0].ItemArray[3].ToString())
             };
         }
+
+        #region get user basic info- add by YangDu
+        public UserBasicInfo GetUserBasicInfo(int iUserID)
+        {
+            /*select * from T_UserInfo ui left join T_UserDetail ud on ui.F_ID=ud.F_ID 
+left join T_Orgnization org on ud.F_OrgCode=org.F_ID where ui.F_ID=1*/
+            var sqlStr = @" select  ud.F_Name,ud.F_StaffNo,ud.F_OrgCode,org.F_OrgName from T_UserInfo ui 
+                            left join T_UserDetail ud on ui.F_ID=ud.F_ID 
+                            left join T_Orgnization org on ud.F_OrgCode=org.F_ID 
+                            where ui.F_ID=@userId";
+            SqlParameter[] parms =
+            {
+                new SqlParameter("@userId",iUserID),
+            };
+            var result = new Tools.SqlHelper().ExecuteQuery(sqlStr, parms, System.Data.CommandType.Text);
+            var rows = result.Rows;
+            if (rows.Count != 1)
+            {
+                return null;
+            }
+            return new UserBasicInfo()
+            {
+                NickName = rows[0].ItemArray[0].ToString(),
+                StaffNo = rows[0].ItemArray[1].ToString(),
+                OrgCode = rows[0].ItemArray[2].ToString(),
+                OrgName = rows[0].ItemArray[3].ToString()
+            };
+
+        }
+
+        #endregion
+
+
 
         public int GetUserTypeCount(UserType userType)
         {
