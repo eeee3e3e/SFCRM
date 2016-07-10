@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 namespace ShunFengCRM.UI.Models
-{
+{ 
     public class UserReportInfo
     {
         public int TodayVisitCount { get; set; }
