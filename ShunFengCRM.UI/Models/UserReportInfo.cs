@@ -18,5 +18,7 @@ namespace ShunFengCRM.UI.Models
         public int VisitReportRqCount { get; set; }
 
         public int VisitCount { get; set; }
+
+        public bool IsRed { get; set; }
     }
 }

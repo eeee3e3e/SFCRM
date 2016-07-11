@@ -13,13 +13,13 @@ namespace ShunFengCRM.DAL
     {
         public int GetUserRank(int userId, UserType userType, DateTime visitDate, DateTime endDate)
         {
-            var sqlStr = @"select F_StaffID,VisitCount,Sorting from(
-select t3.F_StaffID,t3.VisitCount,row_number()over(ORDER BY VisitCount desc) as Sorting from(
-select * from T_UserInfo where F_TypeID=@typeID) as t2 inner join(
+            var sqlStr = @"select F_ID,CASE WHEN t4.VisitCount is null THEN 0 else t4.VisitCount end as VisitCount,Sorting from(
+select t2.F_ID,t3.VisitCount,row_number()over(ORDER BY VisitCount desc) as Sorting from(
+select * from T_UserInfo where F_TypeID=@typeID) as t2 left join(
 select F_StaffID,Count(*) as VisitCount  from (
 
 select F_ID,F_StaffID from dbo.T_VisitReport where F_VisitDate>=@visitDate and F_VisitDate<@endDate
-) as t1  group by  F_StaffID) as t3 on t2.F_ID=t3.F_StaffID) as t4 where t4.F_StaffID=@userId";
+) as t1  group by  F_StaffID) as t3 on t2.F_ID=t3.F_StaffID) as t4 where t4.F_ID=@userId";
 
             SqlParameter[] parms = 
             {
@@ -151,5 +151,39 @@ select F_ID,F_StaffID from dbo.T_VisitReport where F_VisitDate>=@visitDate and F
             }
             return Convert.ToInt32(rows[0].ItemArray[0].ToString());
         }
+
+        public int UserCount(UserType userType)
+        {
+            var sqlStr = @"select count(*) from T_UserInfo where F_TypeID=@typeID";
+            SqlParameter[] parms = 
+            {
+                new SqlParameter("@typeID",userType),
+            };
+            var result = new Tools.SqlHelper().ExecuteQuery(sqlStr, parms, System.Data.CommandType.Text);
+            var rows = result.Rows;
+            if (rows.Count != 1)
+            {
+                return 0;
+            }
+            return Convert.ToInt32(rows[0].ItemArray[0].ToString());
+        }
+
+        public Dictionary<string, int> UserStandard()
+        {
+            var sqlStr = "SELECT * FROM [SF_CRM].[dbo].[T_VisitStandard]";
+            var result = new Tools.SqlHelper().ExecuteQuery(sqlStr, System.Data.CommandType.Text);
+            var rows = result.Rows;
+            if (rows.Count != 1)
+            {
+                return new Dictionary<string, int>();
+            }
+            var dic = new Dictionary<string, int>();
+            dic.Add("visitStandard", Convert.ToInt32(rows[0].ItemArray[1].ToString()));
+            dic.Add("warmRank", Convert.ToInt32(rows[0].ItemArray[2].ToString()));
+            return dic;
+        }
+
+
+
     }
 }
