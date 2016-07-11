@@ -16,7 +16,7 @@ namespace ShunFengCRM.UI.Controllers
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             this.UserId = ShunFengCRM.UI.Class.Tools.CookieHelper.GetCookie("userId");
-            this.UserType = new DAL.UserInfoRepository().GetUserInfo(this.UserId).UserType;
+            //this.UserType = new DAL.UserInfoRepository().GetUserInfo(UserId).UserType;
             base.Initialize(requestContext);
         }
     }

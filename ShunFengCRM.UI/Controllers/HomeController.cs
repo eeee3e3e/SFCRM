@@ -3,6 +3,7 @@ using ShunFengCRM.UI.Class.Tools;
 using ShunFengCRM.UI.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -185,6 +186,79 @@ namespace ShunFengCRM.UI.Controllers
         {
             return View();
         }
+
+        public ActionResult Visit_Record_List()
+        {
+            return View();
+        }
+
+        public ActionResult VistRecordListAjax()
+        {
+            string strReturn = "";
+            var strID = Class.Tools.CookieHelper.GetCookie("userId");
+            //return userinfo
+            DataTable ReportList = new ShunFengCRM.DAL.VisitReportRepository().ShowReportList(strID);
+            ReturnData<string> data = null;
+
+            strReturn += @"<table style='width: 100%;'>";
+
+            if (ReportList != null)
+            {
+                //edit successful
+                for (int iCount = 0; iCount < ReportList.Rows.Count; iCount++)
+                {
+                    strReturn += @"<tr style='width: 100 %;'> ";
+                     strReturn +=@"<td style = 'text-align: center;'> ";
+                    strReturn += @"<div>";
+                     strReturn +=@"<div class='vrl_items' style='font-size: 20px; font-weight: bold'>"+ ReportList.Rows[iCount]["F_ClientName"].ToString() + "</div>";
+                     strReturn +=@"<div style = 'text-align: center'>";
+                     strReturn +=@"拜访人:" + ReportList.Rows[iCount]["F_CustomerName"].ToString();
+                     strReturn +=@"</div>";
+                     strReturn +=@"</div>";
+                     strReturn +=@"</td>";
+                     strReturn +=@" ";
+                     strReturn +=@"</tr>";
+                     strReturn +=@"<tr>";
+                     strReturn +=@"<td>";
+                     strReturn +=@"<div style = 'border-bottom: 1px dotted  #245580 ; border-radius: 5px;text-align: right'>";
+                     strReturn +=@"<div class='fr vrl_items'>";
+                     strReturn += ReportList.Rows[iCount]["F_VisitDate"].ToString();
+                     strReturn +=@"</div>";
+                     strReturn +=@"<div id ='' class='fr vrl_items' style=''>录入时间：</div>";
+                     strReturn +=@"</div>"                                                                                            ;
+                     strReturn +=@"</td>";
+                     strReturn +=@"</tr>";            
+
+                }
+                
+
+            }
+            else
+            {
+                //edit fail
+                strReturn += @"<tr style='width: 100 %;'> ";
+                strReturn += @"<td style = 'text-align: center;'> ";
+                strReturn += "暂时没有相关记录";
+                strReturn += @"</td>";
+                strReturn += @"</tr>";
+
+            }
+
+            strReturn +="</table >";
+
+            data = new ReturnData<string>
+            {
+                Data = strReturn,
+                ErrorMessage = "成功",
+                ReturnType = ReturnType.Success,
+                WarnMessage = "成功",
+            };
+            // return json data
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+       
+
 
         public ActionResult StatusReminderAjax()
         {

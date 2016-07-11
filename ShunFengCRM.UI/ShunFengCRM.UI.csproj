@@ -138,6 +138,8 @@
     </Compile>
     <Compile Include="Models\ReturnData.cs" />
     <Compile Include="Models\ReturnType.cs" />
+    <Compile Include="Models\ReturnUserInfo.cs" />
+    <Compile Include="Models\UserReportInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +208,7 @@
     <Content Include="Views\Home\RankDetail.cshtml" />
     <Content Include="Views\Home\RankType.cshtml" />
     <Content Include="Views\Home\StatusReminder.cshtml" />
+    <Content Include="Views\Home\Visit_Record_List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,7 +1,7 @@
 /*width 100%*/
 .wholeLine
 {
-	width：100%;
+	width:100%;
 	
 }
 
@@ -45,4 +45,10 @@
     padding-left:10px;
     width: 120px;
     height:100%;    
+}
+
+.div_overflow
+{
+	overflow-y:auto;
+	min-height:500px;max-height:600px; 
 }
