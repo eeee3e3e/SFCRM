@@ -17,14 +17,14 @@
     <title>SF Logistics CRM system</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../CommonCss/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../CommonCss/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="~/Content/CommonCss/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/CommonCss/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
     <!-- Custom css -->
-    <link href="../CommonCss/css/shared.css" rel="stylesheet">
-    <link href="../CommonCss/css/comb.css" rel="stylesheet">
-    <link href="../CommonCss/css/base.css" rel="stylesheet">
+    <link href="~/Content/CommonCss/css/shared.css" rel="stylesheet">
+    <link href="~/Content/CommonCss/css/comb.css" rel="stylesheet">
+    <link href="~/Content/CommonCss/css/base.css" rel="stylesheet">
     <!--cite javascript-->
-    <script type="text/javascript" src="../CommonJs/js/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/CommonJs/js/jquery-3.0.0.min.js"></script>
 
     <!-- Custom styles for this template -->
     <!-- <link href="starter-template.css" rel="stylesheet"> -->
@@ -37,7 +37,11 @@
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript">
-
+        function GoRankDetial(strPosition)
+        {
+            localStorage.setItem("strPosition", strPosition);
+            window.location.href = "RankDetail";
+        }
     </script>
 
 
@@ -57,19 +61,19 @@
 
         <!-- personal information edit-->
         <div style="width:100%; height:250px;background-color#2575CF; text-align: center">
-            <div id="div_area_manager" class="bluerow Font_Color_w largeFont"> 分部经理 </div>
+            <div id="div_area_manager" class="bluerow Font_Color_w largeFont" onclick="GoRankDetial('分部经理')"> 分部经理 </div>
             <div class="plaintrow">
             </div>
-            <div id="div_saler" class="bluerow Font_Color_w largeFont"> 销售 </div>
+            <div id="div_saler" class="bluerow Font_Color_w largeFont" onclick="GoRankDetial('销售')"> 销售 </div>
             <div class="plaintrow">
             </div>
-            <div id="div_business_manager" class="bluerow Font_Color_w largeFont"> 业务主管 </div>
+            <div id="div_business_manager" class="bluerow Font_Color_w largeFont " onclick="GoRankDetial('业务主管')"> 业务主管 </div>
             <div class="plaintrow">
             </div>
-            <div id="div_place_manager" class="bluerow Font_Color_w largeFont"> 点部主管 </div>
+            <div id="div_place_manager" class="bluerow Font_Color_w largeFont" onclick="GoRankDetial('点部主管')"> 点部主管 </div>
             <div class="plaintrow">
             </div>
-            <div id="div_sender" class="bluerow Font_Color_w largeFont"> 收派员 </div>
+            <div id="div_sender" class="bluerow Font_Color_w largeFont" onclick="GoRankDetial('收派员')"> 收派员 </div>
 
         </div>
         <div class="Absolute-Center">

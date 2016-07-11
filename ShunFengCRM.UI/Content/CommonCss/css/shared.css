@@ -49,7 +49,7 @@
 
 .button, .button:visited 
 {
-	background: #222 url("/../Images/overlay.png") repeat-x; 
+	background: #222 url("../../Img/overlay.png") repeat-x; 
 	display: inline-block; 
 	padding: 5px 10px 6px; 
 	border:none;
@@ -79,6 +79,16 @@
 {
   position: relative;
   top: 20%;
+  bottom:20%;
+  
+}
+
+/*add by lu jie*/
+/*顶端留白40%*/
+.vertical-center1
+{
+  position: relative;
+  top: 40%;
   bottom:20%;
   
 }
