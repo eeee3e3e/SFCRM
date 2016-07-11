@@ -141,6 +141,63 @@ left join T_Orgnization org on ud.F_OrgCode=org.F_ID where ui.F_ID=1*/
                 return false;
         }
 
+        public DataTable GetTop10byMonth(string strPosition)
+        {
+            //1.compare the staff level
+            //ranklist includes : 1. report number, 2. ranking no, 3, district-name 4, staff name
+            string strDateStart = DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + "01";
+            string strDateEnd = DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-"+ DateTime.Now.Day.ToString();
+            string sqlStr= @"select top 8 * from 
+                            (
+                                select  distinct ud.F_Name, ut.F_Name as strLevel,ui.F_ID as F_ID, org.F_OrgName as F_OrgName, count(*) as TotalVisit 
+                                from T_UserInfo ui left join T_VisitReport vr
+                                on vr.F_StaffID = ui.F_ID left join T_UserType ut 
+                                on ui.F_TypeID=ut.F_TypeID 
+                                left join T_UserDetail ud on ui.F_ID=ud.F_ID
+                                left join T_Orgnization org on ud.F_OrgCode=org.F_ID where
+                                vr.F_VisitDate between @strDateStart and @strDateEnd and ut.F_Name=@strPosition 
+                                group by ui.F_ID,ut.F_Name,ui.f_id, ud.F_Name,org.F_OrgName
+                             )       
+                                tb order by TotalVisit desc";
+
+            SqlParameter[] parms =
+            {
+                new SqlParameter("@strDateStart",strDateStart),
+                new SqlParameter("@strDateEnd",strDateEnd),
+                new SqlParameter("@strPosition",strPosition),
+            };
+            var result = new Tools.SqlHelper().ExecuteQuery(sqlStr, parms, System.Data.CommandType.Text);
+
+            if (result.Rows.Count != 0)
+            {
+
+                return result;
+            }
+            else
+                return null;
+
+        }
+
+        
+
+        //get rank name according to user id .add by YangDu
+        public string GetRankName(string strID)
+        {
+            var sqlStr = @"select ut.F_Name from t_userinfo ui inner join T_UserType ut 
+                        on ui.F_TypeID=ut.F_TypeID where ui.F_ID = @strUserID";
+            SqlParameter[] parms =
+            {
+                new SqlParameter("@strUserID",strID),
+            };
+            var result = new Tools.SqlHelper().ExecuteQuery(sqlStr, parms, System.Data.CommandType.Text);
+
+            if (result.Rows.Count!=0)
+            {
+                return result.Rows[0].ItemArray[0].ToString();
+            }
+            else
+                return null;
+        }
 
     }
 }
