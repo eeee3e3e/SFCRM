@@ -204,7 +204,7 @@ namespace ShunFengCRM.UI.Controllers
                 //edit successful
                 for (int iCount = 0; iCount < ReportList.Rows.Count; iCount++)
                 {
-                    strReturn += @"<tr style='width: 100 %;'> ";
+                    strReturn += @"<tr style='width: 100 %; onclick='SysLogin('Visit_Record_Edit')' '> ";
                      strReturn +=@"<td style = 'text-align: center;'> ";
                     strReturn += @"<div>";
                      strReturn +=@"<div class='vrl_items' style='font-size: 20px; font-weight: bold'>"+ ReportList.Rows[iCount]["F_ClientName"].ToString() + "</div>";
@@ -254,8 +254,11 @@ namespace ShunFengCRM.UI.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-       
 
+        public ActionResult Visit_Record_Edit()
+        {
+            return View();
+        }
 
         public ActionResult StatusReminderAjax()
         {
