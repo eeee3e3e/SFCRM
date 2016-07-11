@@ -49,6 +49,9 @@
                     $('#TodayVisitCount').html(returnData.Data.TodayVisitCount);
                     $('#VisitReportRqCount').html(returnData.Data.VisitReportRqCount);
                     $('#VisitCount').html(returnData.Data.VisitCount);
+                    if (returnData.Data.IsRed == true) {
+                        $('#OneMonthVisitSort').css("color", "red");
+                    }
                     return false;
                 }
                 alert(returnData.WarnMessage);
@@ -115,7 +118,7 @@
                         <td style="text-align: center; border: solid 1px #999999;font-size: 18px">
                             当月排名
                             <div id="lb_new" style=" height 14px;">
-                                <label id="OneMonthVisitSort"></label>
+                                <label id="OneMonthVisitSort" style=""></label>
                             </div>
                         </td>
                     </tr>

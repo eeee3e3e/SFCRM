@@ -52,8 +52,6 @@ namespace ShunFengCRM.UI.Controllers
             }
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-
-
         [AuthenticationAttribute]
         public ActionResult SuccessLogin()
         {
@@ -99,17 +97,16 @@ namespace ShunFengCRM.UI.Controllers
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-
+        [AuthenticationAttribute]
         public ActionResult PersonalEdit()
         {
             return View();
         }
-
-
-        public ActionResult PersonalEditAjax()
+        [AuthenticationAttribute]
+        public ActionResult PersonalEditAjax(string strPassword)
         {
             var strID = Class.Tools.CookieHelper.GetCookie("userId");
-            
+
             var userInfo = new ShunFengCRM.DAL.UserInfoRepository().GetUser(strID);
             ReturnData<string> data = null;
 
@@ -267,14 +264,21 @@ namespace ShunFengCRM.UI.Controllers
             var endTime = Class.Tools.DateTimeHelper.GetThisMonthFist(DateTime.Now.AddMonths(1));
             var userReportInfo = new UserReportInfo()
             {
-
                 OneMonthNewSign = visitReportRepository.OneMonthNewSign(base.UserId, startTime, endTime),
                 OneMonthVisiCount = visitReportRepository.OneMonthVisitCount(base.UserId, startTime, endTime),
                 OneMonthVisitSort = visitReportRepository.GetUserRank(base.UserId, base.UserType, startTime, endTime),
                 TodayVisitCount = visitReportRepository.TodayVisitCustomer(base.UserId),
                 VisitReportRqCount = visitReportRepository.VisitReportRqCount(base.UserId),
                 VisitCount = visitReportRepository.VisitCount(base.UserId),
+                IsRed = false,
             };
+            var dic = visitReportRepository.UserStandard();
+            var userCount = visitReportRepository.UserCount(base.UserType);
+            if (userReportInfo.OneMonthVisiCount < dic["visitStandard"])
+            {
+                if (userReportInfo.OneMonthVisitSort + dic["warmRank"] >= userCount)
+                    userReportInfo.IsRed = true;
+            }
             var data = new ReturnData<UserReportInfo>()
             {
                 Data = userReportInfo,
