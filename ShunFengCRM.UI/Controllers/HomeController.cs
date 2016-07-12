@@ -70,6 +70,7 @@ namespace ShunFengCRM.UI.Controllers
         {
             return View();
         }
+        [AuthenticationAttribute]
         public ActionResult MainfrmAjax()
         {
             var userInfo = new ShunFengCRM.DAL.UserInfoRepository().GetUserInfo(base.UserId);
@@ -98,6 +99,7 @@ namespace ShunFengCRM.UI.Controllers
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        
         [AuthenticationAttribute]
         public ActionResult PersonalEdit()
         {
@@ -142,6 +144,7 @@ namespace ShunFengCRM.UI.Controllers
         }
 
         //bind personal information
+        [AuthenticationAttribute]
         public ActionResult BindingPersonalInfo()
         {
             var strID = Class.Tools.CookieHelper.GetCookie("userId");
@@ -179,18 +182,21 @@ namespace ShunFengCRM.UI.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-
+        [AuthenticationAttribute]
         public ActionResult StatusReminder()
         {
             return View();
         }
 
+        [AuthenticationAttribute]
         public ActionResult Visit_Record_Add()
         {
-            return View();
+            return View();    
         }
 
-        public ActionResult Visit_Record_Add(string strClientName, string strMonthlyAccountNo,
+        [AuthenticationAttribute]
+        public ActionResult VisitRecordAdd(  string strClientName,
+                                               string strMonthlyAccountNo,
                                                string strAmount,
                                                string strProduct,
                                                string strProfession,
@@ -200,23 +206,24 @@ namespace ShunFengCRM.UI.Controllers
                                                string strRqArray,
                                                string strRemark)
         {
-
-            var strID = Class.Tools.CookieHelper.GetCookie("userId");
+            
+            var strStaffID = Class.Tools.CookieHelper.GetCookie("userId");
             //return userinfo
-            //var userInfo = new ShunFengCRM.DAL.UserInfoRepository().InsertVisitRecord(strClientName, strAmount, strProduct, strProfession, strType, strPhrase, strCustomerName, strRqArray, strRemark);
-
-            ReturnData<string> data = null;
-            data = new ReturnData<string>
-            {
-                Data = null,
-                ErrorMessage = "失败",
-                ReturnType = ReturnType.Fail,
-                WarnMessage = "失败",
+            var VisitRecordAdd= new ShunFengCRM.DAL.ProfessionalReportRepository();
+            var result=VisitRecordAdd.InsertVisitRecord(strClientName, strMonthlyAccountNo, strAmount, strProduct, strProfession, strType, strPhrase, strCustomerName, strRqArray, strRemark, strStaffID.ToString());
+                                                                                      
+            ReturnData<string> data = null;                                           
+            data = new ReturnData<string>                                             
+            {                                                                         
+                Data = null,                                                          
+                ErrorMessage = "成功",                                                
+                ReturnType = ReturnType.Success,                                         
+                WarnMessage = "成功",                                                 
             };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-
+        [AuthenticationAttribute]
         public ActionResult Visit_Record_List()
         {
             return View();
@@ -224,7 +231,7 @@ namespace ShunFengCRM.UI.Controllers
 
 
 
-
+        [AuthenticationAttribute]
         public ActionResult VistRecordListSelectAjax(string strCond)
         {
             string strReturn = "";
@@ -291,7 +298,7 @@ namespace ShunFengCRM.UI.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-
+        [AuthenticationAttribute]
         public ActionResult VistRecordListAjax()
         {
             string strReturn = "";
@@ -358,7 +365,7 @@ namespace ShunFengCRM.UI.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-
+        [AuthenticationAttribute]
         public ActionResult VisitRecordEdit()
         {
             ViewBag.ReportId = 11;
@@ -410,6 +417,7 @@ namespace ShunFengCRM.UI.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        [AuthenticationAttribute]
         public ActionResult StatusReminderAjax()
         {
             var visitReportRepository = new DAL.VisitReportRepository();
