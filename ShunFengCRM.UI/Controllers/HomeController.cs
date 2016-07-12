@@ -202,7 +202,7 @@ namespace ShunFengCRM.UI.Controllers
             
             var strID = Class.Tools.CookieHelper.GetCookie("userId");
             //return userinfo
-            var userInfo = new ShunFengCRM.DAL.UserInfoRepository().InsertVisitRecord(strClientName, strAmount, strProduct, strProfession, strType, strPhrase, strCustomerName, strRqArray, strRemark);
+            //var userInfo = new ShunFengCRM.DAL.UserInfoRepository().InsertVisitRecord(strClientName, strAmount, strProduct, strProfession, strType, strPhrase, strCustomerName, strRqArray, strRemark);
                                                                                       
             ReturnData<string> data = null;                                           
             data = new ReturnData<string>                                             
