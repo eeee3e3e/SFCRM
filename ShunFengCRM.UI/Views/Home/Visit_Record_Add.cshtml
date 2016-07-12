@@ -39,7 +39,57 @@
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript">
+        function checkListItem()
+        {
+            var bChecked = 0;
+            $("div[name='RqDiv']").each(
+                function () {
+                    if ($(this).hasClass("checkedbox")) {
+                        bChecked++;
+                    }
+                    
+                }
+            )
+
+            if ($("#txt_ClientName").val().trim() == "")
+            {
+                alert("请输入客户名称");
+                return false;
+            }
+            else if ($("#strCustomerName").val().trim() == "")
+            {
+                alert("请输入拜访人信息");
+                return false;
+            }
+
+            else if ((bChecked == 0) && ($("#txt_Remark").val().trim() == "")) {
+                alert("请输入备注信息");
+                return false;
+            }
+
+            else { return true;}
+            
+
+        }
+
+        function changeStyle(obj)
+        {
+            if ($(obj).hasClass("checkedbox")) {
+                $(obj).removeClass("checkedbox");
+                $(obj).addClass("uncheckedbox");
+            }
+            else {
+                $(obj).removeClass("uncheckedbox");
+                $(obj).addClass("checkedbox");
+            }
+        }
+
         function SubmitInfo() {
+
+            if (!checkListItem())
+            {
+                return false;
+            }
             //获取已经填写的数据
             var strClientName = $("#txt_ClientName").val();
             var strMonthlyAccountNo = $("#txt_MonthlyAccountNo").val();
@@ -47,39 +97,42 @@
             var strProduct = jQuery("#sel_Product  option:selected").text();
             var strProfession = jQuery("#sel_Profession  option:selected").text();
             var strType = jQuery("#sel_Type option:selected").text();
-            var strPhrase = jQuery("sel_Phrase option:selected").text();
+            var strPhrase = jQuery("#sel_Phrase option:selected").text();
             var strCustomerName = $("#strCustomerName").val();
             var strRqArray = "";
-            $("input[name='RqDiv']").each(
+            $("div[name='RqDiv']").each(
                 function ()
                 {
                     if ($(this).hasClass("checkedbox"))
                     {
-                        strRqArray += $(this).val();
+                        strRqArray += $(this).attr("RqID");
+                        strRqArray += "*";
+                        strRqArray += $(this).attr("RqName");
                         strRqArray += ";";
                     }
                 }
             )
-
+            strRqArray = strRqArray.substring(0, strRqArray.length-1)
             var strRemark = $("#txt_Remark").val();
 
             var data =
                {
                    strClientName: strClientName,
-                   strMonthlyAccountNo: strMonthlyAccountNo,
-                   strAmount: strAmount,
-                   strProduct: strProduct,
-                   strProfession: strProfession,
-                   strType: strType,
-                   strPhrase: strPhrase,
-                   strCustomerName: strCustomerName,
-                   strRqArray: strRqArray,
-                   strRemark: strRemark
+                   strMonthlyAccountNo:strMonthlyAccountNo,
+                   strAmount:strAmount,
+                   strProduct:strProduct,
+                   strProfession:strProfession,
+                   strType:strType,
+                   strPhrase:strPhrase,
+                   strCustomerName:strCustomerName,
+                   strRqArray:strRqArray,
+                   strRemark:strRemark,
                }
 
             $.post("/Home/VisitRecordAdd", data, function (returnData) {
                 if (returnData.ReturnTypeStr == "Success") {
-                    
+                    alert("添加成功");
+                    window.location.href = "/Home/Visit_Record_List";
                     return true;
                 }
                 else {
@@ -111,7 +164,7 @@
             <div class="fl vra_field_label">
                 客户名称:
             </div>
-            <input type="text" id="txt_ClientName" class="txtbox2" readonly="" style="padding-top:22px; text-align: center; width:50%;inline-box-align: left  ">
+            <input type="text" id="txt_ClientName" class="txtbox2" style="padding-top:22px; text-align: center; width:50%;inline-box-align: left  ">
             
         </div>
 
@@ -119,7 +172,7 @@
             <div class="fl vra_field_label">
                 月结账号:
             </div>
-            <input type="text" id="MonthlyAccountNo" class="txtbox2" style="padding-top:22px; text-align: center; width:50%;inline-box-align: left  ">
+            <input type="text" id="txt_MonthlyAccountNo" class="txtbox2" style="padding-top:22px; text-align: center; width:50%;inline-box-align: left  ">
             &nbsp;
             </label>
         </div>
@@ -207,16 +260,16 @@
             <div class="fl vra_field_label" >
                 需求:
             </div>
-            <div class="fl checkedbox" name="RqDiv">
+            <div class="fl checkedbox" onclick="changeStyle(this)" name="RqDiv" RqID="1" RqName="系统">
                 系统
             </div>
-            <div class="fl checkedbox" name="RqDiv">
+            <div class="fl checkedbox" onclick="changeStyle(this)" name="RqDiv" RqID="2" RqName="价格">
                 价格
             </div>
-            <div class="fl checkedbox" name="RqDiv">
+            <div class="fl checkedbox" onclick="changeStyle(this)" name="RqDiv" RqID="3" RqName="时效">
                 时效
             </div>
-            <div class="fl uncheckedbox" name="RqDiv">
+            <div class="fl uncheckedbox" onclick="changeStyle(this)" name="RqDiv" RqID="4" RqName="营运">
                 营运
             </div>
         </div>
@@ -250,7 +303,7 @@
             <div class="fl vra_field_label">
                 备注:
             </div>
-            <textarea class="fl" id="txt_Remark" readonly="" style="margin-top:10px"></textarea>
+            <textarea class="fl" id="txt_Remark"  style="margin-top:10px"></textarea>
         </div>
 
         <div>
