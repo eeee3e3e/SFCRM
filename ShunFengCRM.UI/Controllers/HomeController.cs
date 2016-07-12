@@ -184,6 +184,11 @@ namespace ShunFengCRM.UI.Controllers
             return View();
         }
 
+        public ActionResult Visit_Record_Add()
+        {
+            return View();    
+        }
+
         public ActionResult Visit_Record_List()
         {
             return View();
