@@ -84,6 +84,23 @@ font-variant:normal;
 font-weight :normal;
 }
 
+.txtbox2
+{
+border-top-width :0px;
+border-left-width :0px;
+border-right-width :0px;
+border-bottom-width:1px;
+font-size: 18px;
+color: black;
+background-color: #EFEEEE;
+border-bottom: black thin solid;
+font-style:normal;
+line-height:normal;
+height:18px;
+font-variant:normal;
+font-weight :normal;
+}
+
 /*add by lu jie*/
 /*字体颜色黑色*/
 .Font_Color_b

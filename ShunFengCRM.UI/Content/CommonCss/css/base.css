@@ -1,7 +1,7 @@
 /*width 100%*/
 .wholeLine
 {
-	width:100%;
+	width：100%;
 	
 }
 
@@ -31,7 +31,7 @@
 .ddl_div{
     background: url('../Img/arrow.png') right center no-repeat; 
    /* the width and the height of your image */
-    width: 100px;
+    width: 30%px;
     height: 30px;
     overflow: hidden;
     border: solid 1px #cccc;
