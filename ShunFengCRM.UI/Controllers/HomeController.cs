@@ -189,10 +189,40 @@ namespace ShunFengCRM.UI.Controllers
             return View();    
         }
 
+        public ActionResult Visit_Record_Add(  string strClientName,string strMonthlyAccountNo,
+                                               string strAmount,
+                                               string strProduct,
+                                               string strProfession,
+                                               string strType,
+                                               string strPhrase,
+                                               string strCustomerName,
+                                               string strRqArray,
+                                               string strRemark)
+        {
+            
+            var strID = Class.Tools.CookieHelper.GetCookie("userId");
+            //return userinfo
+            var userInfo = new ShunFengCRM.DAL.UserInfoRepository().InsertVisitRecord(strClientName, strAmount, strProduct, strProfession, strType, strPhrase, strCustomerName, strRqArray, strRemark);
+                                                                                      
+            ReturnData<string> data = null;                                           
+            data = new ReturnData<string>                                             
+            {                                                                         
+                Data = null,                                                          
+                ErrorMessage = "失败",                                                
+                ReturnType = ReturnType.Fail,                                         
+                WarnMessage = "失败",                                                 
+            };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+
         public ActionResult Visit_Record_List()
         {
             return View();
         }
+
+
+
 
         public ActionResult VistRecordListSelectAjax(string strCond)
         {
