@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShunFengCRM.DTO;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -174,5 +175,22 @@ namespace ShunFengCRM.DAL.Tools
             }
         }
         #endregion
+
+        public ICollection<StaticInfo> GetStaticInfo(string input)
+        {
+            var StaticInfos = new List<StaticInfo>();
+            var result = new Tools.SqlHelper().ExecuteQuery(input, System.Data.CommandType.Text);
+            var rows = result.Rows;
+            foreach (DataRow item in rows)
+            {
+                var model = new StaticInfo()
+                {
+                    Id = Convert.ToInt32(item[0].ToString()),
+                    Name = item[1].ToString(),
+                };
+                StaticInfos.Add(model);
+            }
+            return StaticInfos;
+        }
     }
 }
