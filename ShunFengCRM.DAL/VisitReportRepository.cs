@@ -184,14 +184,34 @@ select F_ID,F_StaffID from dbo.T_VisitReport where F_VisitDate>=@visitDate and F
             return dic;
         }
 
+        public DataTable ShowReportListByCond(int userId, string keys)
+        {
+            string sqlStr = @"  select vr.F_ClientName, tr.F_CustomerName,vr.F_VisitDate,vr.F_ID 
+                                from T_VisitReport vr left join  T_Remark tr on vr.F_ID=tr.F_VisitReportID
+                                where vr.F_StaffID=@strUserID and F_ClientName like '%"+keys+@"%'
+                                order by F_VisitDate desc";
 
+            SqlParameter[] parms =
+            {
+                new SqlParameter("@strUserID",userId),
+            };
+            var result = new Tools.SqlHelper().ExecuteQuery(sqlStr, parms, System.Data.CommandType.Text);
+
+            if (result.Rows.Count != 0)
+            {
+
+                return result;
+            }
+            else
+                return null;
+        }
 
 
 
         public DataTable ShowReportList(int userId)
         {
-            string sqlStr = @"  select vr.F_ClientName, vr.F_CustomerName,vr.F_VisitDate,vr.F_ID 
-                                from T_VisitReport vr 
+            string sqlStr = @"  select vr.F_ClientName, tr.F_CustomerName,vr.F_VisitDate,vr.F_ID 
+                                from T_VisitReport vr left join  T_Remark tr on vr.F_ID=tr.F_VisitReportID
                                 where vr.F_StaffID=@strUserID
                                 order by F_VisitDate desc";
 

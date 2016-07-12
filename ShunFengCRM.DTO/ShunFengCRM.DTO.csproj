@@ -44,6 +44,7 @@
     <Compile Include="UserBasicInfo.cs" />
     <Compile Include="UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VisitListItem.cs" />
     <Compile Include="VisitReportModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
