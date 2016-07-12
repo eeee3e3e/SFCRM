@@ -1,0 +1,115 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+          "http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="XHRT">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>SF Logistics CRM system</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/CommonCss/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/CommonCss/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <!-- Custom css -->
+    <link href="~/Content/CommonCss/css/shared.css" rel="stylesheet">
+    <link href="~/Content/CommonCss/css/comb.css" rel="stylesheet">
+    <link href="~/Content/CommonCss/css/base.css" rel="stylesheet">
+    <link href="~/Content/CommonCss/css/page.css" rel="stylesheet">
+    <!--cite javascript-->
+    <script type="text/javascript" src="~/Scripts/CommonJs/js/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/CommonJs/js/shared.js"></script>
+    <!-- Custom styles for this template -->
+    <!-- <link href="starter-template.css" rel="stylesheet"> -->
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!-- <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+        var jsonObj = "";
+        function VisitListAjax()
+
+        {
+            //稍后赋值到隐藏的控件值中
+            var recordNo = 1;
+            var data =
+               {
+                   strRecordNo: recordNo
+               }
+
+            $.post("/Home/VistRecordListAjax", data, function (returnData) {
+                if (returnData.ReturnTypeStr == "Success") {
+                    $("#t_list").html(returnData.Data);
+                    jsonObj = jQuery.parseJSON(returnData.WarnMessage);
+                    return true;
+                }
+                else {
+
+                    return false;
+                }
+
+            })
+        }
+
+        function ConditionQueryAjax()
+        {
+            var data =
+               {
+                   strCond: $("#txt_search").val()
+               }
+
+            $.post("/Home/VistRecordListSelectAjax", data, function (returnData) {
+                if (returnData.ReturnTypeStr == "Success") {
+                    $("#t_list").html(returnData.Data);
+                    jsonObj = jQuery.parseJSON(returnData.WarnMessage);
+                    return true;
+                }
+                else {
+
+                    return false;
+                }
+
+            })
+
+        }
+
+    </script>
+
+
+</head>
+
+<body class="contextStyle" onload="VisitListAjax()">
+    <div class="container font_common wholeLine">
+        <div class="DefaultLine wholeLine" style="font-size:15px;height:50px">
+            <div class="fl Font_Color_w bold vertical-center">
+                &nbsp;&nbsp;客户拜访表
+            </div>
+            <div class="fr vertical-center"><a href="#" class="Font_Color_w bold ">注销  &nbsp;&nbsp;  </a></div>
+        </div>
+        <div class="Td_Hori_Center" style="margin-top:10px; height:30px; text-align: center; border-bottom:3px double ; border-bottom-color:#2E6DA4 ">
+            <input type="button" id="btn_Search" class="" value="搜索" style="width: 40px;height:20px;" onclick="ConditionQueryAjax()">
+            <input type="text" id="txt_search" page="vra_field_text" value="">
+        </div>
+        <div id="t_list">
+
+        </div>
+
+
+    </div>
+
+    <div class="alignment-center font_common" style=" position:absolute;bottom:20px; left:10%; right:10%">Industry development and management</div>
+</body>
+<footer></footer>
+</html>
