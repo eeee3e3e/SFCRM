@@ -141,7 +141,7 @@ namespace ShunFengCRM.UI.Controllers
         }
 
         //bind personal information
-        public  ActionResult BindingPersonalInfo()
+        public ActionResult BindingPersonalInfo()
         {
             var strID = Class.Tools.CookieHelper.GetCookie("userId");
             //return userinfo
@@ -149,7 +149,7 @@ namespace ShunFengCRM.UI.Controllers
             ReturnData<string> data = null;
 
 
-            if (userInfo!=null)
+            if (userInfo != null)
             {
                 //edit successful
                 data = new ReturnData<string>
@@ -307,29 +307,29 @@ namespace ShunFengCRM.UI.Controllers
                 for (int iCount = 0; iCount < ReportList.Rows.Count; iCount++)
                 {
                     strReturn += @"<tr style='width: 100 %; onclick='SysLogin('Visit_Record_Edit')' '> ";
-                     strReturn +=@"<td style = 'text-align: center;'> ";
+                    strReturn += @"<td style = 'text-align: center;'> ";
                     strReturn += @"<div>";
-                     strReturn +=@"<div class='vrl_items' style='font-size: 20px; font-weight: bold'>"+ ReportList.Rows[iCount]["F_ClientName"].ToString() + "</div>";
-                     strReturn +=@"<div style = 'text-align: center'>";
-                     strReturn +=@"拜访人:" + ReportList.Rows[iCount]["F_CustomerName"].ToString();
-                     strReturn +=@"</div>";
-                     strReturn +=@"</div>";
-                     strReturn +=@"</td>";
-                     strReturn +=@" ";
-                     strReturn +=@"</tr>";
-                     strReturn +=@"<tr>";
-                     strReturn +=@"<td>";
-                     strReturn +=@"<div style = 'border-bottom: 1px dotted  #245580 ; border-radius: 5px;text-align: right'>";
-                     strReturn +=@"<div class='fr vrl_items'>";
-                     strReturn += ReportList.Rows[iCount]["F_VisitDate"].ToString();
-                     strReturn +=@"</div>";
-                     strReturn +=@"<div id ='' class='fr vrl_items' style=''>录入时间：</div>";
-                     strReturn +=@"</div>"                                                                                            ;
-                     strReturn +=@"</td>";
-                     strReturn +=@"</tr>";            
+                    strReturn += @"<div class='vrl_items' style='font-size: 20px; font-weight: bold'>" + ReportList.Rows[iCount]["F_ClientName"].ToString() + "</div>";
+                    strReturn += @"<div style = 'text-align: center'>";
+                    strReturn += @"拜访人:" + ReportList.Rows[iCount]["F_CustomerName"].ToString();
+                    strReturn += @"</div>";
+                    strReturn += @"</div>";
+                    strReturn += @"</td>";
+                    strReturn += @" ";
+                    strReturn += @"</tr>";
+                    strReturn += @"<tr>";
+                    strReturn += @"<td>";
+                    strReturn += @"<div style = 'border-bottom: 1px dotted  #245580 ; border-radius: 5px;text-align: right'>";
+                    strReturn += @"<div class='fr vrl_items'>";
+                    strReturn += ReportList.Rows[iCount]["F_VisitDate"].ToString();
+                    strReturn += @"</div>";
+                    strReturn += @"<div id ='' class='fr vrl_items' style=''>录入时间：</div>";
+                    strReturn += @"</div>";
+                    strReturn += @"</td>";
+                    strReturn += @"</tr>";
 
                 }
-                
+
 
             }
             else
@@ -343,7 +343,7 @@ namespace ShunFengCRM.UI.Controllers
 
             }
 
-            strReturn +="</table >";
+            strReturn += "</table >";
 
 
             data = new ReturnData<string>
@@ -358,7 +358,43 @@ namespace ShunFengCRM.UI.Controllers
         }
 
 
-        public ActionResult Visit_Record_Edit()
+        public ActionResult VisitRecordEdit()
+        {
+            return View();
+        }
+
+        [AuthenticationAttribute]
+        public ActionResult VisitRecordEditStaticAjax()
+        {
+            var phrase = new DAL.PhraseRepository().Get();
+            var product = new DAL.ProductRepository().Get();
+            var profession = new DAL.ProfessionRepository().Get();
+            var rq = new DAL.RequirementRepository().Get();
+            var visitKind = new DAL.VisitKindRepository().Get();
+            var returnData = new
+            {
+                Phrase = phrase,
+                Product = product,
+                Profession = profession,
+                Rq = rq,
+                VisitKind = visitKind,
+            };
+            var data = new ReturnData<Object>()
+            {
+                Data = returnData,
+                ErrorMessage = "成功",
+                ReturnType = ReturnType.Success,
+                WarnMessage = "成功",
+            };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult VisitRecordEditDataAjax()
+        {
+            return View();
+        }
+
+        public ActionResult VisitRecordEditUpdateAjax()
         {
             return View();
         }

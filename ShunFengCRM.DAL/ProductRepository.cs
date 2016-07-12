@@ -10,7 +10,7 @@ namespace ShunFengCRM.DAL
     public class ProductRepository
     {
 
-        public ICollection<StaticInfo> GetProduct()
+        public ICollection<StaticInfo> Get()
         {
             var sqlStr = "SELECT * FROM  [SF_CRM].[dbo].[T_Product]";
             return new Tools.SqlHelper().GetStaticInfo(sqlStr);

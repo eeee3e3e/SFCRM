@@ -10,7 +10,7 @@ namespace ShunFengCRM.DAL
 {
     public class PhraseRepository
     {
-        public ICollection<StaticInfo> GetPhrases()
+        public ICollection<StaticInfo> Get()
         {
             var sqlStr = "SELECT * FROM [SF_CRM].[dbo].[T_Phrase]";
             return new Tools.SqlHelper().GetStaticInfo(sqlStr);
