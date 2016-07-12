@@ -209,7 +209,7 @@
     <Content Include="Views\Home\RankType.cshtml" />
     <Content Include="Views\Home\StatusReminder.cshtml" />
     <Content Include="Views\Home\VisitRecordEdit.cshtml" />
-    <Content Include="Views\Home\Visit_Record_List.cshtml" />  
+    <Content Include="Views\Home\Visit_Record_List.cshtml" />
     <Content Include="Views\Home\Visit_Record_Add.cshtml" />
   </ItemGroup>
   <ItemGroup>

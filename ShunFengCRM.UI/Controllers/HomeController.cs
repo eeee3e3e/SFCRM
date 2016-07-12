@@ -189,7 +189,8 @@ namespace ShunFengCRM.UI.Controllers
             return View();    
         }
 
-        public ActionResult Visit_Record_Add(  string strClientName,string strMonthlyAccountNo,
+        public ActionResult VisitRecordAdd(  string strClientName,
+                                               string strMonthlyAccountNo,
                                                string strAmount,
                                                string strProduct,
                                                string strProfession,
@@ -200,17 +201,18 @@ namespace ShunFengCRM.UI.Controllers
                                                string strRemark)
         {
             
-            var strID = Class.Tools.CookieHelper.GetCookie("userId");
+            var strStaffID = Class.Tools.CookieHelper.GetCookie("userId");
             //return userinfo
-            //var userInfo = new ShunFengCRM.DAL.UserInfoRepository().InsertVisitRecord(strClientName, strAmount, strProduct, strProfession, strType, strPhrase, strCustomerName, strRqArray, strRemark);
-                                                                                      
+            var VisitRecordAdd= new ShunFengCRM.DAL.ProfessionalReportRepository();
+            var result=VisitRecordAdd.InsertVisitRecord(strClientName, strMonthlyAccountNo, strAmount, strProduct, strProfession, strType, strPhrase, strCustomerName, strRqArray, strRemark, strStaffID.ToString());
+
             ReturnData<string> data = null;                                           
             data = new ReturnData<string>                                             
             {                                                                         
                 Data = null,                                                          
-                ErrorMessage = "失败",                                                
-                ReturnType = ReturnType.Fail,                                         
-                WarnMessage = "失败",                                                 
+                ErrorMessage = "成功",                                                
+                ReturnType = ReturnType.Success,                                         
+                WarnMessage = "成功",                                                 
             };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
