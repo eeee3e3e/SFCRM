@@ -18,8 +18,8 @@
     <link href="~/Content/CommonCss/css/base.css" rel="stylesheet">
     <link href="~/Content/CommonCss/css/page.css" rel="stylesheet">
     <!--cite javascript-->
-    <script type="text/javascript" src="~/Scripts/js/jquery-3.0.0.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/CommonJs/js/shared.js"></script>
+    <script type="text/javascript" src="~/Scripts/CommonJs/js/jquery-3.0.0.min.js"></script>
+
     <!-- Custom styles for this template -->
     <!-- <link href="starter-template.css" rel="stylesheet"> -->
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
@@ -31,8 +31,40 @@
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript">
+        $(function () {
+            InitStatic();
+        })
 
+        function InitStatic() {
 
+            $.post("/Home/VisitRecordEditStaticAjax", null, function (returnData) {
+                InitStaticInfo('product', returnData.Data.Product)
+                InitStaticInfo('phrase', returnData.Data.Phrase)
+                InitStaticInfo('visitKind', returnData.Data.VisitKind)
+                InitStaticInfo('profession', returnData.Data.Profession)
+                InitRq(returnData.Data.Rq);
+            })
+        }
+
+        function InitStaticInfo(Id, data) {
+            for (x in data) {
+                var dataInfo = data[x];
+                $('#' + Id).append("<option myId='" + dataInfo.Id + "'>" + dataInfo.Name + "</option>");
+            }
+        }
+
+        function InitRq(data) {
+            var td = "";
+            for (x in data) {
+                var dataInfo = data[x];
+                if (x % 4 == 0) {
+                    $('#tableRq').append("<tr>" + td + "</tr>");
+                    td = "";
+                }
+                td += "<td myId='" + dataInfo.Id + "'>" + dataInfo.Name + "</td>"
+            }
+            $('#tableRq').append("<tr>" + td + "</tr>");
+        }
     </script>
 
 
@@ -47,7 +79,6 @@
             <div class="fr vertical-center"><a href="#" class="Font_Color_w bold ">注销 &nbsp;&nbsp;  </a></div>
         </div>
         <div class="" style="height:15px">
-            <!-- Place holder-->
         </div>
         <div class="vra_field_rows">
             <div class="fl vra_field_label">
@@ -82,11 +113,7 @@
                         产品:
                     </div>
                     <div class=" fl ddl_div" style="inline-box-align: left; margin-right: 20%">
-                        <select class="ddl">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
+                        <select class="ddl" id="product"></select>
                     </div>
                     <!--place holder-->
 
@@ -94,11 +121,7 @@
                         行业:
                     </div>
                     <div class="ddl" style="inline-box-align: left">
-                        <select class="ddl">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
+                        <select class="ddl" id="profession"></select>
                     </div>
                 </div>
                 <div style="height:15px"></div>
@@ -108,21 +131,13 @@
                         类型:
                     </div>
                     <div class="fl ddl_div" style="inline-box-align: left; margin-right: 20%">
-                        <select class="ddl">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
+                        <select class="ddl" id="visitKind"></select>
                     </div>
                     <div class="fl" style="inline-box-align: left">
                         阶段:
                     </div>
                     <div class="fl ddl_div" style="inline-box-align: ">
-                        <select class="ddl">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
+                        <select class="ddl" id="phrase"></select>
                     </div>
                 </div>
 
@@ -136,71 +151,20 @@
             <input type="text" class="txtbox2" style="padding-top:22px; text-align: center; width:50%;inline-box-align: left  ">
             &nbsp;
         </div>
-
-
-
         <div class="vra_field_rows">
             <div class="fl vra_field_label">
                 需求:
             </div>
-            <div class="fl checkedbox">
-                系统
-            </div>
-            <div class="fl checkedbox">
-                价格
-            </div>
-            <div class="fl checkedbox">
-                时效
-            </div>
-            <div class="fl uncheckedbox">
-                营运
+            <div class="fl">
+                <table id="tableRq"></table>
             </div>
         </div>
-
-        <div class="vra_field_rows">
-            <div class="fl vra_field_label">
-                拜访记录:
-            </div>
-            <input type="text" class="txtbox2" style="padding-top:22px; text-align: center; width:50%;inline-box-align: left  ">
-            &nbsp;
-        </div>
-        <div class="vra_field_rows">
-            <div class="fl vra_field_label">
-                拜访记录:
-            </div>
-            <input type="text" class="txtbox2" style="padding-top:22px; text-align: center; width:50%;inline-box-align: left  ">
-            &nbsp;
-        </div>
-        <div class="vra_field_rows">
-            <div class="fl vra_field_label">
-                拜访记录:
-            </div>
-            <input type="text" class="txtbox2" style="padding-top:22px; text-align: center; width:50%;inline-box-align: left  ">
-            &nbsp;
-        </div>
-
-        <div class="vra_field_rows">
-            <div class="fl vra_field_label">
-                备注:
-            </div>
-            <textarea class="fl" readonly="" style="margin-top:10px"></textarea>
-        </div>
-
         <div>
             <div style="margin:10px;height:20px">
-                <!--place holder-->
             </div>
             <div id="btn_Modify">
                 <input type="button" style="position: relative;left:40%;right:40%" class="button blue" value="修 改" />
             </div>
-            <!--
-            <div class="Font_Color_w fl" style="width:50%;text-align:center; bottom:50%; font-size:40px; height: 100px " >
-                91
-            </div>
-            <div class="fl ColorFrm fl" style="width:45%; font-size: 25px; border: 1px; ">
-                ����
-            </div>
-            -->
         </div>
         <div class="alignment-center font_common" style=" position:absolute;bottom:20px; left:10%; right:10%">Industry development and management</div>
     </div>

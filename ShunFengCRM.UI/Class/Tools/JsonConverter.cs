@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Data;
 
 namespace ShunFengCRM.UI.Class.Tools
 {
@@ -27,5 +28,41 @@ namespace ShunFengCRM.UI.Class.Tools
             MemoryStream mStream = new MemoryStream(Encoding.UTF8.GetBytes(jsonString));
             return serializer.ReadObject(mStream);
         }
+
+
+
+
+        #region dataTable转换成Json格式
+        public static string ToJson(DataTable dt)
+        {
+            StringBuilder jsonString = new StringBuilder();
+            jsonString.Append("[");
+            DataRowCollection drc = dt.Rows;
+            for (int i = 0; i < drc.Count; i++)
+            {
+                jsonString.Append("{");
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    string strKey = dt.Columns[j].ColumnName;
+                    string strValue = drc[i][j].ToString();
+                    Type type = dt.Columns[j].DataType;
+                    jsonString.Append("\"" + strKey + "\":");
+                    strValue = String.Format(strValue, type);
+                    if (j < dt.Columns.Count - 1)
+                    {
+                        jsonString.Append(strValue + ",");
+                    }
+                    else
+                    {
+                        jsonString.Append(strValue);
+                    }
+                }
+                jsonString.Append("},");
+            }
+            jsonString.Remove(jsonString.Length - 1, 1);
+            jsonString.Append("]");
+            return jsonString.ToString();
+        }
+        #endregion
     }
 }
