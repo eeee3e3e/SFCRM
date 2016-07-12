@@ -1,4 +1,5 @@
-﻿using ShunFengCRM.UI.Class;
+﻿using ShunFengCRM.DTO;
+using ShunFengCRM.UI.Class;
 using ShunFengCRM.UI.Class.Tools;
 using ShunFengCRM.UI.Models;
 using System;
@@ -186,10 +187,10 @@ namespace ShunFengCRM.UI.Controllers
 
         public ActionResult Visit_Record_Add()
         {
-            return View();    
+            return View();
         }
 
-        public ActionResult Visit_Record_Add(  string strClientName,string strMonthlyAccountNo,
+        public ActionResult Visit_Record_Add(string strClientName, string strMonthlyAccountNo,
                                                string strAmount,
                                                string strProduct,
                                                string strProfession,
@@ -199,18 +200,18 @@ namespace ShunFengCRM.UI.Controllers
                                                string strRqArray,
                                                string strRemark)
         {
-            
+
             var strID = Class.Tools.CookieHelper.GetCookie("userId");
             //return userinfo
             //var userInfo = new ShunFengCRM.DAL.UserInfoRepository().InsertVisitRecord(strClientName, strAmount, strProduct, strProfession, strType, strPhrase, strCustomerName, strRqArray, strRemark);
-                                                                                      
-            ReturnData<string> data = null;                                           
-            data = new ReturnData<string>                                             
-            {                                                                         
-                Data = null,                                                          
-                ErrorMessage = "失败",                                                
-                ReturnType = ReturnType.Fail,                                         
-                WarnMessage = "失败",                                                 
+
+            ReturnData<string> data = null;
+            data = new ReturnData<string>
+            {
+                Data = null,
+                ErrorMessage = "失败",
+                ReturnType = ReturnType.Fail,
+                WarnMessage = "失败",
             };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -360,6 +361,7 @@ namespace ShunFengCRM.UI.Controllers
 
         public ActionResult VisitRecordEdit()
         {
+            ViewBag.ReportId = 11;
             return View();
         }
 
@@ -389,14 +391,23 @@ namespace ShunFengCRM.UI.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult VisitRecordEditDataAjax()
+        public ActionResult VisitRecordEditDataAjax(int Id)
         {
-            return View();
+            var returnData = new DAL.VisitReportRepository().GetVisitReport(Id, base.UserId);
+            var data = new ReturnData<VisitReportModel>()
+            {
+                Data = returnData,
+                ErrorMessage = "成功",
+                ReturnType = ReturnType.Success,
+                WarnMessage = "成功",
+            };
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult VisitRecordEditUpdateAjax()
+        public ActionResult VisitRecordEditUpdateAjax(VisitReportUpDateModel input)
         {
-            return View();
+            var data = new DAL.VisitReportRepository().UpdateVisitReport(input);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult StatusReminderAjax()

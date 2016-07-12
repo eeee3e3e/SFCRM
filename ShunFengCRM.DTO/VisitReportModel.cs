@@ -6,27 +6,15 @@ using System.Threading.Tasks;
 
 namespace ShunFengCRM.DTO
 {
-    public class VisitReportModel
+    public class VisitReportModel : VisitReportUpDateModel
     {
-        public int Id { get; set; }
+        public VisitReportModel()
+        {
+            RemarkInfos = new List<RemarkInfo>();
+        }
 
-        public string ClientName { get; set; }
+        public string CustomerName { get; set; }
 
-        public string MonthlyAccount { get; set; }
-
-        public decimal ProAccount { get; set; }
-
-        public int ProductID { get; set; }
-
-        public int ProfesionID { get; set; }
-
-        public int KindID { get; set; }
-
-        public int PhraseID { get; set; }
-
-        public int StaffID { get; set; }
-
-        public DateTime VisitDate { get; set; }
-
+        public ICollection<RemarkInfo> RemarkInfos { get; set; }
     }
 }
