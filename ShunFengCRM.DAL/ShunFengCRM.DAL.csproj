@@ -41,10 +41,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdvertyRepository.cs" />
+    <Compile Include="PhraseRepository.cs" />
+    <Compile Include="ProductRepository.cs" />
+    <Compile Include="ProfessionRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequirementRepository.cs" />
     <Compile Include="Tools\SqlHelper.cs" />
     <Compile Include="UserInfoRepository.cs" />
     <Compile Include="UserTypeRepository.cs" />
+    <Compile Include="VisitKindRepository.cs" />
     <Compile Include="VisitReportRepository.cs" />
   </ItemGroup>
   <ItemGroup>

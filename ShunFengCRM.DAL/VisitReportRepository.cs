@@ -66,7 +66,6 @@ select F_ID,F_StaffID from dbo.T_VisitReport where F_VisitDate>=@visitDate and F
             }
         }
 
-
         public int TodayVisitCustomer(int userId)
         {
             var sqlStr = "SELECT Count(*) as VisitCount FROM [SF_CRM].[dbo].[T_VisitReport] where F_VisitDate>=@today and F_StaffID=@userId";
@@ -229,5 +228,50 @@ select F_ID,F_StaffID from dbo.T_VisitReport where F_VisitDate>=@visitDate and F
             else
                 return null;
         }
+
+        public bool UpdateVisitReport(VisitReportUpDateModel input)
+        {
+            //exec UpdateDate 1,'5558',100,2,2,2,1,'delete  [SF_CRM].[dbo].[T_RqInfo] where F_VisitReportID=1','赵凯','已经和谈完毕，准备签合同'
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append(string.Format("delete  [SF_CRM].[dbo].[T_RqInfo] where F_VisitReportID={0} ", input.ReportId));
+            foreach (var item in input.RqIds)
+            {
+                sb.Append(string.Format("insert into [SF_CRM].[dbo].[T_RqInfo] values({0},{1}) ", item, input.ReportId));
+            }
+            var sqlStr = sb.ToString();
+            SqlParameter[] parms = 
+            {
+                
+                //--@Id int,
+                //--@MonthlyAccount varchar(50),
+                //--@ProAmount decimal(18,0),
+                //--@ProductId int,
+                //--@ProfessionId int,
+                //--@VisitKind int,
+                //--@PhraseId int,
+                //--@Sql varchar(max),
+                //--@CustomerName nvarchar(max),
+                //--@Remark nvarchar(max)
+
+                new SqlParameter("@Id",input.ReportId),
+                new SqlParameter("@MonthlyAccount",input.MonthlyAccount),
+                new SqlParameter("@ProAmount",input.ProAmount),
+                new SqlParameter("@ProductId",input.ProductId),
+                new SqlParameter("@ProfessionId",input.ProfessionId),
+                new SqlParameter("@VisitKind",input.VisitKind),
+                new SqlParameter("@PhraseId",input.PhraseId),
+                new SqlParameter("@Sql",sqlStr),
+                new SqlParameter("@CustomerName",input.CustomerName),
+                new SqlParameter("@Remark",input.Remark),
+
+            };
+            var result = new Tools.SqlHelper().ExecuteNonQuery("UpdateDate", parms, System.Data.CommandType.Text);
+            if (result > 0)
+                return false;
+            else
+                return true;
+        }
+
     }
 }
