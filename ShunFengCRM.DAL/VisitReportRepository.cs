@@ -328,7 +328,7 @@ select F_ID,F_StaffID from dbo.T_VisitReport where F_VisitDate>=@visitDate and F
             {
                 var model = new RemarkInfo()
                 {
-                    Remark = item.ItemArray[0].ToString(),
+                    Remark = string.IsNullOrEmpty(item.ItemArray[0].ToString()) ? "无" : item.ItemArray[0].ToString(),
                     Time = Convert.ToDateTime(item.ItemArray[1].ToString()),
                     VisitPersonName = string.IsNullOrEmpty(item.ItemArray[2].ToString()) ? "无" : item.ItemArray[2].ToString(),
                 };
