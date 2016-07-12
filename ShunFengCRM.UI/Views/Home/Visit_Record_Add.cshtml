@@ -39,17 +39,68 @@
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript">
+        function SubmitInfo() {
+            //获取已经填写的数据
+            var strClientName = $("#txt_ClientName").val();
+            var strMonthlyAccountNo = $("#txt_MonthlyAccountNo").val();
+            var strAmount = $("#txt_Amount").val();
+            var strProduct = jQuery("#sel_Product  option:selected").text();
+            var strProfession = jQuery("#sel_Profession  option:selected").text();
+            var strType = jQuery("#sel_Type option:selected").text();
+            var strPhrase = jQuery("sel_Phrase option:selected").text();
+            var strCustomerName = $("#strCustomerName").val();
+            var strRqArray = "";
+            $("input[name='RqDiv']").each(
+                function ()
+                {
+                    if ($(this).hasClass("checkedbox"))
+                    {
+                        strRqArray += $(this).val();
+                        strRqArray += ";";
+                    }
+                }
+            )
+
+            var strRemark = $("#txt_Remark").val();
+
+            var data =
+               {
+                   strClientName: strClientName,
+                   strMonthlyAccountNo: strMonthlyAccountNo,
+                   strAmount: strAmount,
+                   strProduct: strProduct,
+                   strProfession: strProfession,
+                   strType: strType,
+                   strPhrase: strPhrase,
+                   strCustomerName: strCustomerName,
+                   strRqArray: strRqArray,
+                   strRemark: strRemark
+               }
+
+            $.post("/Home/VisitRecordAdd", data, function (returnData) {
+                if (returnData.ReturnTypeStr == "Success") {
+                    
+                    return true;
+                }
+                else {
+
+                    return false;
+                }
+
+            })
+        }
+
 
     </script>
 
 
 </head>
 
-<body class="contextStyle">
+<body class="contextStyle" onload="">
     <div class="container font_common wholeLine">
         <div class="DefaultLine wholeLine" style="height:30px">
             <div class="fl Font_Color_w bold vertical-center">
-                &nbsp;&nbsp;客户拜访信息
+                &nbsp;&nbsp;行业开发汇报
             </div>
             <div class="fr vertical-center"><a href="#" class="Font_Color_w bold ">注销 &nbsp;&nbsp;  </a></div>
         </div>
@@ -60,15 +111,15 @@
             <div class="fl vra_field_label">
                 客户名称:
             </div>
-            <input type="text" class="txtbox2" readonly="true" style="padding-top:22px; text-align: center; width:50%;inline-box-align: left  ">
-            </label>
+            <input type="text" id="txt_ClientName" class="txtbox2" readonly="" style="padding-top:22px; text-align: center; width:50%;inline-box-align: left  ">
+            
         </div>
 
         <div class="vra_field_rows">
             <div class="fl vra_field_label">
                 月结账号:
             </div>
-            <input type="text" class="txtbox2" style="padding-top:22px; text-align: center; width:50%;inline-box-align: left  ">
+            <input type="text" id="MonthlyAccountNo" class="txtbox2" style="padding-top:22px; text-align: center; width:50%;inline-box-align: left  ">
             &nbsp;
             </label>
         </div>
@@ -77,7 +128,7 @@
             <div class="fl vra_field_label">
                 潜力金额:
             </div>
-            <input type="text" class="txtbox2" style="padding-top:22px; text-align: center; width:50%;inline-box-align: left  ">
+            <input type="text" id="txt_Amount" class="txtbox2" style="padding-top:22px; text-align: center; width:50%;inline-box-align: left  ">
             &nbsp;
             </label>
         </div>
@@ -91,8 +142,8 @@
                     <div class="fl" style="inline-box-align: left">
                         产品:
                     </div>
-                    <div class=" fl ddl_div" style="inline-box-align: left; margin-right: 20%">
-                        <select class="ddl">
+                    <div   class="fl ddl_div" style="inline-box-align: left; margin-right: 20%">
+                        <select id="sel_Product" class="ddl">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -104,7 +155,7 @@
                         行业:
                     </div>
                     <div class="ddl" style="inline-box-align: left">
-                        <select class="ddl">
+                        <select id="sel_Profession" class="ddl">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -116,11 +167,11 @@
                 <div style="height:15px"></div>
                 <div style="width:100%;height:30px;">
 
-                    <div class="fl" style="inline-box-align: left; ">
+                    <div class="fl"  style="inline-box-align: left; ">
                         类型:
                     </div>
                     <div class="fl ddl_div" style="inline-box-align: left; margin-right: 20%">
-                        <select class="ddl">
+                        <select id="sel_Type" class="ddl">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -129,8 +180,8 @@
                     <div class="fl" style="inline-box-align: left">
                         阶段:
                     </div>
-                    <div class="fl ddl_div" style="inline-box-align: ">
-                        <select class="ddl">
+                    <div class="fl ddl_div" style="inline-box-align:left ">
+                        <select id="sel_Phrase" class="ddl">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -145,7 +196,7 @@
             <div class="fl vra_field_label">
                 拜访人:
             </div>
-            <input type="text" class="txtbox2" style="padding-top:22px; text-align: center; width:50%;inline-box-align: left  ">
+            <input type="text" id="strCustomerName" class="txtbox2" style="padding-top:22px; text-align: center; width:50%;inline-box-align: left  ">
             &nbsp;
             </label>
         </div>
@@ -153,19 +204,19 @@
 
 
         <div class="vra_field_rows">
-            <div class="fl vra_field_label">
+            <div class="fl vra_field_label" >
                 需求:
             </div>
-            <div class="fl checkedbox">
+            <div class="fl checkedbox" name="RqDiv">
                 系统
             </div>
-            <div class="fl checkedbox">
+            <div class="fl checkedbox" name="RqDiv">
                 价格
             </div>
-            <div class="fl checkedbox">
+            <div class="fl checkedbox" name="RqDiv">
                 时效
             </div>
-            <div class="fl uncheckedbox">
+            <div class="fl uncheckedbox" name="RqDiv">
                 营运
             </div>
         </div>
@@ -199,7 +250,7 @@
             <div class="fl vra_field_label">
                 备注:
             </div>
-            <textarea class="fl" readonly="" style="margin-top:10px"></textarea>
+            <textarea class="fl" id="txt_Remark" readonly="" style="margin-top:10px"></textarea>
         </div>
 
         <div>
@@ -207,7 +258,7 @@
                 <!--place holder-->
             </div>
             <div id="btn_Modify">
-                <input type="button" style="position: relative;left:40%;right:40%" class="button blue" value="修 改" />
+                <input type="button" onclick="SubmitInfo()" style="position: relative;left:40%;right:40%" class="button blue" value="修 改" />
             </div>
             <!--
             <div class="Font_Color_w fl" style="width:50%;text-align:center; bottom:50%; font-size:40px; height: 100px " >
