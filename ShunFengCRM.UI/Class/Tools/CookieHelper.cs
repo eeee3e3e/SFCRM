@@ -58,5 +58,24 @@ namespace ShunFengCRM.UI.Class.Tools
                 return userId;
             }
         }
+
+
+        public static void ClearCookie()
+        {
+            HttpContext context = HttpContext.Current;
+            try
+            {
+                HttpCookie cookie = context.Request.Cookies.Get(cookieName);
+                if (cookie != null)
+                {
+                    cookie.Expires = DateTime.Now.AddDays(-1);
+                    context.Response.Cookies.Add(cookie);
+                }
+            }
+            catch
+            {
+
+            }
+        }
     }
 }

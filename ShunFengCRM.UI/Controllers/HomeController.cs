@@ -297,7 +297,7 @@ namespace ShunFengCRM.UI.Controllers
             // return json data
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-        
+
         public ActionResult RankType()
         {
             return View();
@@ -326,11 +326,11 @@ namespace ShunFengCRM.UI.Controllers
             {
                 if (RankInfo.Rows.Count > 0)
                 {
-                    
-                    for (int iCount=0;iCount<RankInfo.Rows.Count;iCount++)
+
+                    for (int iCount = 0; iCount < RankInfo.Rows.Count; iCount++)
                     {
                         //Get the input rows
-                        if(RankInfo.Rows[iCount]["F_ID"].ToString().Trim()== strID.ToString().Trim())
+                        if (RankInfo.Rows[iCount]["F_ID"].ToString().Trim() == strID.ToString().Trim())
                         {
                             strMyVisitNum = RankInfo.Rows[iCount]["TotalVisit"].ToString();
                             strMyRankNum = RankInfo.Rows[iCount]["RankID"].ToString();
@@ -345,25 +345,25 @@ namespace ShunFengCRM.UI.Controllers
                             }
 
                             //顶部信息
-                           // strHtml += @"<div class='container font_common wholeLine'>
-                                             //   < div class='DefaultLine wholeLine' style='height:30px'>
-                                             //       <div class='fl Font_Color_w bold vertical-center'>
-                                             //           &nbsp;&nbsp;" + 分部经理 + @"
-                                             //       </div>
-                                             //       <a href = '#' class='fr Font_Color_w bold vertical-center'>注销&nbsp;&nbsp;</a>
-                                             //   </div>
-                                             //</div>
-                                             //   <div class='wholeLine' style='background:#FFFFFF'>&nbsp;</div>
-                                             //   <div class='DefaultLine wholeLine' id='divContent' style='height:100px'>";
+                            // strHtml += @"<div class='container font_common wholeLine'>
+                            //   < div class='DefaultLine wholeLine' style='height:30px'>
+                            //       <div class='fl Font_Color_w bold vertical-center'>
+                            //           &nbsp;&nbsp;" + 分部经理 + @"
+                            //       </div>
+                            //       <a href = '#' class='fr Font_Color_w bold vertical-center'>注销&nbsp;&nbsp;</a>
+                            //   </div>
+                            //</div>
+                            //   <div class='wholeLine' style='background:#FFFFFF'>&nbsp;</div>
+                            //   <div class='DefaultLine wholeLine' id='divContent' style='height:100px'>";
 
 
                             //write html
                             strHtml += @"<div class='DefaultLine' style='height: 80px;'>
                                                <label class='vertical-center Font_Color_w' style=' text-align: center;font-size: 30px;height:80px; width: 40%'> 
-  				                                "+ RankInfo.Rows[iCount]["TotalVisit"].ToString() + @"
+  				                                " + RankInfo.Rows[iCount]["TotalVisit"].ToString() + @"
   			                                </label>
 			                                 <label class='vertical-center Font_Color_w' style='text-align: left;font-size: 25px;height:60px; width: 40%:overflow:auto'> 
-  					                               "+ RankInfo.Rows[iCount]["RankID"].ToString() + ". " + RankInfo.Rows[iCount]["F_OrgName"].ToString() +"-"+RankInfo.Rows[iCount]["F_Name"].ToString()+ @"
+  					                               " + RankInfo.Rows[iCount]["RankID"].ToString() + ". " + RankInfo.Rows[iCount]["F_OrgName"].ToString() + "-" + RankInfo.Rows[iCount]["F_Name"].ToString() + @"
                                               </label>
   		                                </div>	";
 
@@ -380,13 +380,13 @@ namespace ShunFengCRM.UI.Controllers
                                             </label >
                                         </div> ";
 
-                            
+
                         }
                         else
                         {
                             break;
                         }
-                    } 
+                    }
 
                 }
                 else
@@ -615,6 +615,19 @@ namespace ShunFengCRM.UI.Controllers
                 ErrorMessage = "成功",
                 ReturnType = ReturnType.Success,
                 WarnMessage = "成功",
+            };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult CancelLogin()
+        {
+            Class.Tools.CookieHelper.ClearCookie();
+            var data = new ReturnData<bool>()
+            {
+                Data = true,
+                ErrorMessage = "成功",
+                WarnMessage = "成功",
+                ReturnType = ReturnType.Success
             };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
