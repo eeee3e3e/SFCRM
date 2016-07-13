@@ -147,9 +147,9 @@ left join T_Orgnization org on ud.F_OrgCode=org.F_ID where ui.F_ID=1*/
             //ranklist includes : 1. report number, 2. ranking no, 3, district-name 4, staff name
             string strDateStart = DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + "01";
             string strDateEnd = DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-"+ DateTime.Now.Day.ToString();
-            string sqlStr= @"select top 8 * from 
+            string sqlStr= @"select * from 
                             (
-                                select  distinct ud.F_Name, ut.F_Name as strLevel,ui.F_ID as F_ID, org.F_OrgName as F_OrgName, count(*) as TotalVisit 
+                                select  distinct row_number() over(order by (select 0)) as RankID, ud.F_Name, ut.F_Name as strLevel,ui.F_ID as F_ID, org.F_OrgName as F_OrgName, count(*) as TotalVisit 
                                 from T_UserInfo ui left join T_VisitReport vr
                                 on vr.F_StaffID = ui.F_ID left join T_UserType ut 
                                 on ui.F_TypeID=ut.F_TypeID 

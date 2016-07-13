@@ -296,6 +296,142 @@ namespace ShunFengCRM.UI.Controllers
             // return json data
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        
+        public ActionResult RankType()
+        {
+            return View();
+        }
+
+        public ActionResult RankDetail()
+        {
+            return View();
+        }
+        //Rank according to the user level
+        [Authentication]
+        public ActionResult RankByLevelAjax(string strPosition)
+        {
+            int iFlag = 0;
+            var strID = Class.Tools.CookieHelper.GetCookie("userId");
+            //return userinfo
+            var RankInfo = new ShunFengCRM.DAL.UserInfoRepository().GetTop10byMonth(strPosition);
+            ReturnData<string> data = null;
+            string strHtml = "";
+
+            string strMyVisitNum = "";
+            string strMyRankNum = "";
+            string strMyOrg = "";
+
+            if (RankInfo != null)
+            {
+                if (RankInfo.Rows.Count > 0)
+                {
+                    
+                    for (int iCount=0;iCount<RankInfo.Rows.Count;iCount++)
+                    {
+                        //Get the input rows
+                        if(RankInfo.Rows[iCount]["F_ID"].ToString().Trim()== strID.ToString().Trim())
+                        {
+                            strMyVisitNum = RankInfo.Rows[iCount]["TotalVisit"].ToString();
+                            strMyRankNum = RankInfo.Rows[iCount]["RankID"].ToString();
+                            strMyOrg = "您的排名";
+                        }
+
+                        if (iCount == 0)
+                        {
+                            if (RankInfo.Rows[iCount]["strLevel"].ToString().Trim() == strPosition.Trim())
+                            {
+                                iFlag = 1;  //判断身份标准
+                            }
+
+                            //顶部信息
+                           // strHtml += @"<div class='container font_common wholeLine'>
+                                             //   < div class='DefaultLine wholeLine' style='height:30px'>
+                                             //       <div class='fl Font_Color_w bold vertical-center'>
+                                             //           &nbsp;&nbsp;" + 分部经理 + @"
+                                             //       </div>
+                                             //       <a href = '#' class='fr Font_Color_w bold vertical-center'>注销&nbsp;&nbsp;</a>
+                                             //   </div>
+                                             //</div>
+                                             //   <div class='wholeLine' style='background:#FFFFFF'>&nbsp;</div>
+                                             //   <div class='DefaultLine wholeLine' id='divContent' style='height:100px'>";
+
+
+                            //write html
+                            strHtml += @"<div class='DefaultLine' style='height: 80px;'>
+                                               <label class='vertical-center Font_Color_w' style=' text-align: center;font-size: 30px;height:80px; width: 40%'> 
+  				                                "+ RankInfo.Rows[iCount]["TotalVisit"].ToString() + @"
+  			                                </label>
+			                                 <label class='vertical-center Font_Color_w' style='text-align: left;font-size: 25px;height:60px; width: 40%:overflow:auto'> 
+  					                               "+ RankInfo.Rows[iCount]["RankID"].ToString() + ". " + RankInfo.Rows[iCount]["F_OrgName"].ToString() +"-"+RankInfo.Rows[iCount]["F_Name"].ToString()+ @"
+                                              </label>
+  		                                </div>	";
+
+
+                        }
+                        else if (iCount < 8)
+                        {
+                            strHtml += @"<div style='height: 30px; background-color:#FFFFFF'>
+  		                                <label  style = 'text-align: center;font-size: 15px;color:#2575cf;  height:30px; width: 40%; ' >
+                                              " + RankInfo.Rows[iCount]["TotalVisit"].ToString() + @"
+                                           </label>
+                                          <label style = 'text-align: left;font-size: 15px;color:#2575cf; height:30px; width: 40%;' >
+                                               " + RankInfo.Rows[iCount]["RankID"].ToString() + ". " + RankInfo.Rows[iCount]["F_OrgName"].ToString() + "-" + RankInfo.Rows[iCount]["F_Name"].ToString() + @"
+                                            </label >
+                                        </div> ";
+
+                            
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    } 
+
+                }
+                else
+                {
+                    strHtml = "<Label style='font-color:#000000; text-align:center'>没有相关数据</Label>";
+                }
+
+                if (iFlag == 1)
+                {
+                    strHtml += @"<div style='height: 40px; margin-top: 10px; padding-top: 10px; background-color: #2575cf;'> 
+  				                    <label class='Font_Color_w' style='height:30px; width: 40%; text-align: center;font-size: 18px'>" + strMyVisitNum + @"</label>
+			 
+  				                    <label class='Font_Color_w' style='height:30px; width: 40%; text-align: left;font-size: 18px'>
+  					                    " + strMyRankNum + "." + strMyOrg + @"
+                                      </label>
+  			                    </div>";
+                }
+                //edit successful
+                data = new ReturnData<string>
+                {
+                    Data = strHtml,
+                    ErrorMessage = "成功",
+                    ReturnType = ReturnType.Success,
+                    WarnMessage = "成功",
+                };
+
+            }
+            else
+            {
+                strHtml = "<Label style='font-color:#000000; text-align:center'>没有相关数据</Label>";
+                //edit fail
+                data = new ReturnData<string>
+                {
+                    Data = strHtml,
+                    ErrorMessage = "失败",
+                    ReturnType = ReturnType.Fail,
+                    WarnMessage = "失败",
+                };
+
+            }
+
+            // return json data
+            return Json(data, JsonRequestBehavior.AllowGet);
+
+        }
+
 
         [AuthenticationAttribute]
         public ActionResult VistRecordListAjax()
