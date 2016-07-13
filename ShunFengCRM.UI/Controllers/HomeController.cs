@@ -1,4 +1,5 @@
-﻿using ShunFengCRM.UI.Class;
+﻿using ShunFengCRM.DTO;
+using ShunFengCRM.UI.Class;
 using ShunFengCRM.UI.Class.Tools;
 using ShunFengCRM.UI.Models;
 using System;
@@ -98,7 +99,7 @@ namespace ShunFengCRM.UI.Controllers
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-        
+
         [AuthenticationAttribute]
         public ActionResult PersonalEdit()
         {
@@ -190,11 +191,11 @@ namespace ShunFengCRM.UI.Controllers
         [AuthenticationAttribute]
         public ActionResult Visit_Record_Add()
         {
-            return View();    
+            return View();
         }
 
         [AuthenticationAttribute]
-        public ActionResult VisitRecordAdd(  string strClientName,
+        public ActionResult VisitRecordAdd(string strClientName,
                                                string strMonthlyAccountNo,
                                                string strAmount,
                                                string strProduct,
@@ -205,19 +206,19 @@ namespace ShunFengCRM.UI.Controllers
                                                string strRqArray,
                                                string strRemark)
         {
-            
+
             var strStaffID = Class.Tools.CookieHelper.GetCookie("userId");
             //return userinfo
-            var VisitRecordAdd= new ShunFengCRM.DAL.ProfessionalReportRepository();
-            var result=VisitRecordAdd.InsertVisitRecord(strClientName, strMonthlyAccountNo, strAmount, strProduct, strProfession, strType, strPhrase, strCustomerName, strRqArray, strRemark, strStaffID.ToString());
+            var VisitRecordAdd = new ShunFengCRM.DAL.ProfessionalReportRepository();
+            var result = VisitRecordAdd.InsertVisitRecord(strClientName, strMonthlyAccountNo, strAmount, strProduct, strProfession, strType, strPhrase, strCustomerName, strRqArray, strRemark, strStaffID.ToString());
 
-            ReturnData<string> data = null;                                           
-            data = new ReturnData<string>                                             
-            {                                                                         
-                Data = null,                                                          
-                ErrorMessage = "成功",                                                
-                ReturnType = ReturnType.Success,                                         
-                WarnMessage = "成功",                                                 
+            ReturnData<string> data = null;
+            data = new ReturnData<string>
+            {
+                Data = null,
+                ErrorMessage = "成功",
+                ReturnType = ReturnType.Success,
+                WarnMessage = "成功",
             };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -248,7 +249,7 @@ namespace ShunFengCRM.UI.Controllers
                 {
                     strReturn += @"<tr style='width: 100 %; onclick='SysLogin('Visit_Record_Edit')' '> ";
                     strReturn += @"<td style = 'text-align: center;'> ";
-                    strReturn += @"<div>";
+                    strReturn += @"<div onclick='turnPage(" + ReportList.Rows[iCount]["F_ID"] + ")'>";
                     strReturn += @"<div class='vrl_items' style='font-size: 20px; font-weight: bold'>" + ReportList.Rows[iCount]["F_ClientName"].ToString() + "</div>";
                     strReturn += @"<div style = 'text-align: center'>";
                     strReturn += @"拜访人:" + ReportList.Rows[iCount]["F_CustomerName"].ToString();
@@ -451,7 +452,7 @@ namespace ShunFengCRM.UI.Controllers
                 {
                     strReturn += @"<tr style='width: 100 %; onclick='SysLogin('Visit_Record_Edit')' '> ";
                     strReturn += @"<td style = 'text-align: center;'> ";
-                    strReturn += @"<div>";
+                    strReturn += @"<div onclick='turnPage(" + ReportList.Rows[iCount]["F_ID"] + ")'>";
                     strReturn += @"<div class='vrl_items' style='font-size: 20px; font-weight: bold'>" + ReportList.Rows[iCount]["F_ClientName"].ToString() + "</div>";
                     strReturn += @"<div style = 'text-align: center'>";
                     strReturn += @"拜访人:" + ReportList.Rows[iCount]["F_CustomerName"].ToString();
@@ -501,8 +502,9 @@ namespace ShunFengCRM.UI.Controllers
         }
 
         [AuthenticationAttribute]
-        public ActionResult VisitRecordEdit()
+        public ActionResult VisitRecordEdit(int id)
         {
+            ViewBag.ReportId = id;
             return View();
         }
 
@@ -532,16 +534,23 @@ namespace ShunFengCRM.UI.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        [AuthenticationAttribute]
-        public ActionResult VisitRecordEditDataAjax()
+        public ActionResult VisitRecordEditDataAjax(int Id)
         {
-            return View();
+            var returnData = new DAL.VisitReportRepository().GetVisitReport(Id, base.UserId);
+            var data = new ReturnData<VisitReportModel>()
+            {
+                Data = returnData,
+                ErrorMessage = "成功",
+                ReturnType = ReturnType.Success,
+                WarnMessage = "成功",
+            };
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        [AuthenticationAttribute]
-        public ActionResult VisitRecordEditUpdateAjax()
+        public ActionResult VisitRecordEditUpdateAjax(VisitReportUpDateModel input)
         {
-            return View();
+            var data = new DAL.VisitReportRepository().UpdateVisitReport(input);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         [AuthenticationAttribute]

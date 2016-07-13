@@ -33,16 +33,59 @@
     <script type="text/javascript">
         $(function () {
             InitStatic();
+            $('#buttonUpdate').click(function () {
+                $('#VisitNote').hide();
+                $('#VisitNoteWrite').show();
+                $('#buttonUpdate').hide();
+                $('#buttonUpdateFishin').show();
+                $('#MonthlyAccount').removeAttr("readonly");
+                $('#ProAmount').removeAttr("readonly");
+                $('#MonthlyAccount').removeClass("txtbox2");
+                $('#ProAmount').removeClass("txtbox2");
+            });
+            $('#buttonUpdateFishin').click(function () {
+                $.post("/Home/VisitRecordEditUpdateAjax", null, function (returnData) {
+                    if (returnData.ReturnTypeStr != "Success") {
+                        alert(returnData.WarnMessage);
+                        return;
+                    }
+                    window.location.href = "/Home/Visit_Record_List"
+                })
+            })
         })
 
         function InitStatic() {
-
             $.post("/Home/VisitRecordEditStaticAjax", null, function (returnData) {
+                if (returnData.ReturnTypeStr != "Success") {
+                    alert(returnData.WarnMessage);
+                    return;
+                }
                 InitStaticInfo('product', returnData.Data.Product)
                 InitStaticInfo('phrase', returnData.Data.Phrase)
                 InitStaticInfo('visitKind', returnData.Data.VisitKind)
                 InitStaticInfo('profession', returnData.Data.Profession)
                 InitRq(returnData.Data.Rq);
+                var data = {
+                    Id: $('#reportId').val(),
+                };
+                $.post("/Home/VisitRecordEditDataAjax", data, function (returnDataTwo) {
+                    if (returnDataTwo.ReturnTypeStr != "Success") {
+                        alert(returnDataTwo.WarnMessage);
+                        return;
+                    }
+                    $('#CustomerName').html(returnDataTwo.Data.CustomerName);
+                    $('#MonthlyAccount').val(returnDataTwo.Data.MonthlyAccount);
+                    $('#ProAmount').val(returnDataTwo.Data.ProAmount);
+                    DecideOption("product", returnDataTwo.Data.ProductId);
+                    DecideOption("profession", returnDataTwo.Data.ProfessionId);
+                    DecideOption("visitKind", returnDataTwo.Data.VisitKind);
+                    DecideOption("phrase", returnDataTwo.Data.PhraseId);
+                    for (y in returnDataTwo.Data.RqIds) {
+                        var rq = returnDataTwo.Data.RqIds[y];
+                        RqClick(rq);
+                    }
+                    VisitNote(returnDataTwo.Data.RemarkInfos);
+                })
             })
         }
 
@@ -57,20 +100,41 @@
             var td = "";
             for (x in data) {
                 var dataInfo = data[x];
-                if (x % 4 == 0) {
-                    $('#tableRq').append("<tr>" + td + "</tr>");
-                    td = "";
-                }
-                td += "<td myId='" + dataInfo.Id + "'>" + dataInfo.Name + "</td>"
+                $('#spanRq').append("<label onclick='RequireClick(this)' class='uncheckedbox' myId='" + dataInfo.Id + "'>" + dataInfo.Name + "</label>");
+                $('#spanRq').append("&nbsp;&nbsp;&nbsp;&nbsp;");
             }
-            $('#tableRq').append("<tr>" + td + "</tr>");
+        }
+        function DecideOption(Id, compareId) {
+            var options = $('#' + Id + ' option').each(function () {
+                $(this).attr('myId') == compareId,
+                $(this).attr("selected", true);
+            });
+        }
+        function RequireClick(object) {
+            if ($(object).hasClass('uncheckedbox')) {
+                $(object).removeClass('uncheckedbox');
+                $(object).addClass('checkedbox');
+            }
+            else {
+                $(object).removeClass('checkedbox');
+                $(object).addClass('uncheckedbox');
+            }
+        }
+        function RqClick(id) {
+            RequireClick($('#spanRq label[myId=' + id + ']'));
+        }
+
+        function VisitNote(data) {
+            for (x in data) {
+                var dataInfo = data[x];
+                var appendStr = '<div style="margin-bottom:35px" class="vra_field_rows"><div><label>拜访人:</label><label>' + dataInfo.VisitPersonName + '(' + dataInfo.TimeStr + ')' + '</label></div><div><label>拜访记录:</label> <label>' + dataInfo.Remark + '</label></div></div>'
+                $('#VisitNote').append(appendStr);
+            }
         }
     </script>
-
-
 </head>
-
 <body class="contextStyle">
+    <input id="reportId" type="hidden" value="@ViewBag.ReportId" />
     <div class="container font_common wholeLine">
         <div class="DefaultLine wholeLine" style="height:30px">
             <div class="fl Font_Color_w bold vertical-center">
@@ -78,34 +142,23 @@
             </div>
             <div class="fr vertical-center"><a href="#" class="Font_Color_w bold ">注销 &nbsp;&nbsp;  </a></div>
         </div>
-        <div class="" style="height:15px">
+        <div style="height:15px">
         </div>
         <div class="vra_field_rows">
-            <div class="fl vra_field_label">
-                客户名称:
-            </div>
-            <label class="txtbox2" style="padding-top:22px; text-align: center; width:50%;inline-box-align: left"></label>
+            <label>客户名称:</label>
+            <label class="txtbox2" id="CustomerName"></label>
+        </div>
+        <div class="vra_field_rows">
+            <label>月结账号:</label>
+            <input type="text" class="txtbox2" id="MonthlyAccount" readonly="readonly">
         </div>
 
         <div class="vra_field_rows">
-            <div class="fl vra_field_label">
-                月结账号:
-            </div>
-            <input type="text" class="txtbox2" readonly="readonly" style="padding-top:22px; text-align: center; width:50%;inline-box-align: left  ">
-            &nbsp;
+            <label>潜力金额:</label>
+            <input type="text" class="txtbox2" id="ProAmount" readonly="readonly">
         </div>
-
-        <div class="vra_field_rows">
-            <div class="fl vra_field_label">
-                潜力金额:
-            </div>
-            <input type="text" class="txtbox2" readonly="readonly" style="padding-top:22px; text-align: center; width:50%;inline-box-align: left  ">
-            &nbsp;
-        </div>
-
         <div style="height:100px ">
-            <div style="width: 66%; position:relative; left:18%;right:18%">
-
+            <div style="padding-left:55px">
                 <div style="height:15px"></div>
                 <div style="width:100%;height:30px;inline-box-align: left">
 
@@ -145,25 +198,32 @@
 
         </div>
         <div class="vra_field_rows">
-            <div class="fl vra_field_label">
-                拜访人:
-            </div>
-            <input type="text" class="txtbox2" style="padding-top:22px; text-align: center; width:50%;inline-box-align: left  ">
-            &nbsp;
-        </div>
-        <div class="vra_field_rows">
-            <div class="fl vra_field_label">
+            <label>
                 需求:
-            </div>
-            <div class="fl">
-                <table id="tableRq"></table>
+            </label>
+            <span id="spanRq"></span>
+        </div>
+
+        <div id="VisitNote">
+        </div>
+        <div id="VisitNoteWrite" style="display:none">
+            <div style="margin-bottom:35px" class="vra_field_rows">
+                <div>
+                    <label>拜访人:</label>
+                    <input type="text" id="visitPerson" />
+                </div>
+                <div>
+                    <label>拜访记录:</label>
+                    <input type="text" id="visitNote" />
+                </div>
             </div>
         </div>
         <div>
             <div style="margin:10px;height:20px">
             </div>
             <div id="btn_Modify">
-                <input type="button" style="position: relative;left:40%;right:40%" class="button blue" value="修 改" />
+                <input type="button" id="buttonUpdate" style="position: relative;left:40%;right:40%" class="button blue" value="修 改" />
+                <input type="button" id="buttonUpdateFishin" style="display:none; position: relative;left:40%;right:40%" class="button blue" value="完 成" />
             </div>
         </div>
         <div class="alignment-center font_common" style=" position:absolute;bottom:20px; left:10%; right:10%">Industry development and management</div>

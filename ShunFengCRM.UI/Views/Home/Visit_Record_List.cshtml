@@ -1,10 +1,4 @@
-﻿@{
-    Layout = null;
-}
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-          "http://www.w3.org/TR/html4/strict.dtd">
-
+﻿
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta charset="utf-8">
@@ -39,9 +33,7 @@
     <![endif]-->
     <script type="text/javascript">
         var jsonObj = "";
-        function VisitListAjax()
-
-        {
+        function VisitListAjax() {
             //稍后赋值到隐藏的控件值中
             var recordNo = 1;
             var data =
@@ -63,8 +55,7 @@
             })
         }
 
-        function ConditionQueryAjax()
-        {
+        function ConditionQueryAjax() {
             var data =
                {
                    strCond: $("#txt_search").val()
@@ -85,6 +76,9 @@
 
         }
 
+        function turnPage(id) {
+            window.location.href = "/Home/VisitRecordEdit/" + id;
+        }
     </script>
 
 

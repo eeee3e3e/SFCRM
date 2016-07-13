@@ -38,33 +38,33 @@ select F_ID,F_StaffID from dbo.T_VisitReport where F_VisitDate>=@visitDate and F
             return Convert.ToInt32(rows[0].ItemArray[2].ToString());
         }
 
-        public bool AddVisitRepor(VisitReportModel input)
-        {
-            var sqlStr = "insert into  [SF_CRM].[dbo].[T_VisitReport] values(@Id,@ClientName,@MonthlyAccount,@ProAccount,@ProductID,@ProfessionID,@KindID,@PhaseID,@StaffID,@VisitDate)";
-            SqlParameter[] parms = 
-            {
-                new SqlParameter("@Id",input.Id),
-                new SqlParameter("@ClientName",input.ClientName),
-                new SqlParameter("@MonthlyAccount",input.MonthlyAccount),
-                new SqlParameter("@ProAccount",input.ProAccount),
-                new SqlParameter("@ProductID",input.ProductID),
-                new SqlParameter("@ProfessionID",input.ProfesionID),
-                new SqlParameter("@KindID",input.KindID),
-                new SqlParameter("@PhaseID",input.PhraseID),
-                new SqlParameter("@StaffID",input.StaffID),
-                new SqlParameter("@VisitDate",input.VisitDate),
-            };
+        //public bool AddVisitRepor(VisitReportModel input)
+        //{
+        //    var sqlStr = "insert into  [SF_CRM].[dbo].[T_VisitReport] values(@Id,@ClientName,@MonthlyAccount,@ProAccount,@ProductID,@ProfessionID,@KindID,@PhaseID,@StaffID,@VisitDate)";
+        //    SqlParameter[] parms = 
+        //    {
+        //        new SqlParameter("@Id",input.Id),
+        //        new SqlParameter("@ClientName",input.ClientName),
+        //        new SqlParameter("@MonthlyAccount",input.MonthlyAccount),
+        //        new SqlParameter("@ProAccount",input.ProAccount),
+        //        new SqlParameter("@ProductID",input.ProductID),
+        //        new SqlParameter("@ProfessionID",input.ProfesionID),
+        //        new SqlParameter("@KindID",input.KindID),
+        //        new SqlParameter("@PhaseID",input.PhraseID),
+        //        new SqlParameter("@StaffID",input.StaffID),
+        //        new SqlParameter("@VisitDate",input.VisitDate),
+        //    };
 
-            var resultCount = new Tools.SqlHelper().ExecuteNonQuery(sqlStr, parms, System.Data.CommandType.Text);
-            if (resultCount > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //    var resultCount = new Tools.SqlHelper().ExecuteNonQuery(sqlStr, parms, System.Data.CommandType.Text);
+        //    if (resultCount > 0)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
 
         public int TodayVisitCustomer(int userId)
         {
@@ -187,7 +187,7 @@ select F_ID,F_StaffID from dbo.T_VisitReport where F_VisitDate>=@visitDate and F
         {
             string sqlStr = @"  select vr.F_ClientName, tr.F_CustomerName,vr.F_VisitDate,vr.F_ID 
                                 from T_VisitReport vr left join  T_Remark tr on vr.F_ID=tr.F_VisitReportID
-                                where vr.F_StaffID=@strUserID and F_ClientName like '%"+keys+@"%'
+                                where vr.F_StaffID=@strUserID and F_ClientName like '%" + keys + @"%'
                                 order by F_VisitDate desc";
 
             SqlParameter[] parms =
@@ -204,8 +204,6 @@ select F_ID,F_StaffID from dbo.T_VisitReport where F_VisitDate>=@visitDate and F
             else
                 return null;
         }
-
-
 
         public DataTable ShowReportList(int userId)
         {
@@ -231,7 +229,6 @@ select F_ID,F_StaffID from dbo.T_VisitReport where F_VisitDate>=@visitDate and F
 
         public bool UpdateVisitReport(VisitReportUpDateModel input)
         {
-            //exec UpdateDate 1,'5558',100,2,2,2,1,'delete  [SF_CRM].[dbo].[T_RqInfo] where F_VisitReportID=1','赵凯','已经和谈完毕，准备签合同'
 
             StringBuilder sb = new StringBuilder();
             sb.Append(string.Format("delete  [SF_CRM].[dbo].[T_RqInfo] where F_VisitReportID={0} ", input.ReportId));
@@ -262,7 +259,7 @@ select F_ID,F_StaffID from dbo.T_VisitReport where F_VisitDate>=@visitDate and F
                 new SqlParameter("@VisitKind",input.VisitKind),
                 new SqlParameter("@PhraseId",input.PhraseId),
                 new SqlParameter("@Sql",sqlStr),
-                new SqlParameter("@CustomerName",input.CustomerName),
+                new SqlParameter("@CustomerName",input.VisitPersonName),
                 new SqlParameter("@Remark",input.Remark),
 
             };
@@ -273,5 +270,71 @@ select F_ID,F_StaffID from dbo.T_VisitReport where F_VisitDate>=@visitDate and F
                 return true;
         }
 
+        public VisitReportModel GetVisitReport(int id, int userId)
+        {
+            var sqlReport = @"SELECT [F_ID]
+                                  ,[F_ClientName]
+                                  ,[F_MonthlyAccount]
+                                  ,[F_ProAmount]
+                                  ,[F_ProductID]
+                                  ,[F_ProfessionID]
+                                  ,[F_VisitKindID]
+                                  ,[F_PhraseID]
+                            FROM [SF_CRM].[dbo].[T_VisitReport] where F_ID=@Id  and F_StaffID=@UserId";
+            SqlParameter[] parms =
+            {
+                new SqlParameter("@UserId",userId),
+                new SqlParameter("@Id",id),
+            };
+            var result = new Tools.SqlHelper().ExecuteQuery(sqlReport, parms, System.Data.CommandType.Text);
+            if (result.Rows.Count != 1)
+            {
+                return null;
+            }
+            var row = result.Rows[0];
+            var returnData = new VisitReportModel()
+            {
+                MonthlyAccount = row.ItemArray[2].ToString(),
+                CustomerName = row.ItemArray[1].ToString(),
+                PhraseId = Convert.ToInt32(row.ItemArray[7].ToString()),
+                ProAmount = Convert.ToInt32(row.ItemArray[3].ToString()),
+                ProductId = Convert.ToInt32(row.ItemArray[4].ToString()),
+                ProfessionId = Convert.ToInt32(row.ItemArray[5].ToString()),
+                ReportId = Convert.ToInt32(row.ItemArray[0].ToString()),
+                VisitKind = Convert.ToInt32(row.ItemArray[7].ToString()),
+            };
+            var sqlRq = @"SELECT F_RqID FROM [SF_CRM].[dbo].[T_RqInfo] where F_VisitReportID=@ReportId";
+            SqlParameter[] parmsRq =
+            {
+                new SqlParameter("@ReportId",id),
+            };
+            var resultRq = new Tools.SqlHelper().ExecuteQuery(sqlRq, parmsRq, System.Data.CommandType.Text);
+            var rowsRq = resultRq.Rows;
+            foreach (DataRow item in rowsRq)
+            {
+                returnData.RqIds.Add(Convert.ToInt32(item.ItemArray[0].ToString()));
+            }
+            var sqlRemark = @"  SELECT [F_Remark]
+                                      ,[F_RemarkDate]
+                                      ,[F_CustomerName]
+                                  FROM [SF_CRM].[dbo].[T_Remark] where F_VisitReportID=@visitId";
+            SqlParameter[] parmsRemark =
+            {
+                new SqlParameter("@visitId",id),
+            };
+            var resultRemark = new Tools.SqlHelper().ExecuteQuery(sqlRemark, parmsRemark, System.Data.CommandType.Text);
+            var rowsRemark = resultRemark.Rows;
+            foreach (DataRow item in rowsRemark)
+            {
+                var model = new RemarkInfo()
+                {
+                    Remark = string.IsNullOrEmpty(item.ItemArray[0].ToString()) ? "无" : item.ItemArray[0].ToString(),
+                    Time = Convert.ToDateTime(item.ItemArray[1].ToString()),
+                    VisitPersonName = string.IsNullOrEmpty(item.ItemArray[2].ToString()) ? "无" : item.ItemArray[2].ToString(),
+                };
+                returnData.RemarkInfos.Add(model);
+            }
+            return returnData;
+        }
     }
 }
