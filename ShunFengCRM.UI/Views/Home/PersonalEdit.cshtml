@@ -2,7 +2,7 @@
     Layout = null;
 }
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
           "http://www.w3.org/TR/html4/strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
@@ -37,8 +37,7 @@
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript">
-        function btn_Login()
-        {
+        function btn_Login() {
             SimulationFormRequest();
         }
         $(function () {
@@ -54,22 +53,20 @@
         }
 
         //YangDu 绑定数据
-        function bindInformation()
-        {
-            
-            
-            $.getJSON("/Home/BindingPersonalInfo", function (returnData)
-            {
+        function bindInformation() {
+
+
+            $.getJSON("/Home/BindingPersonalInfo", function (returnData) {
                 var strJson = returnData.Data;
                 var items = jQuery.parseJSON(strJson);
                 $("#txt_NickName").attr("value", items.NickName);
                 $("#txt_StaffNo").attr('value', items.StaffNo);
                 $("#txt_OrgNo").attr("value", items.OrgCode);
                 $("#txt_OrgName").attr("value", items.OrgName);
-                
+
 
             });
-            
+
         }
 
         //赵凯，2016.07.06，模拟表单请求
@@ -93,8 +90,7 @@
                     window.location.href = returnData.Data;
                     return true;
                 }
-                else
-                {
+                else {
                     alert("修改出错");
                     alert(returnData.WarnMessage);
                     return false;
@@ -103,8 +99,7 @@
             })
         }
 
-        function checkPs(strPs,strPsComfirmation)
-        {
+        function checkPs(strPs, strPsComfirmation) {
             if (strPs || strPsComfirmation != "") {
                 if (strPs != strPsComfirmation) {
                     alert("2次密码输入不匹配，请重新输入");
@@ -115,19 +110,16 @@
                     return true;
                 }
             }
-            else
-            {
+            else {
                 alert("用户密码不能为空.");
             }
         }
 
 
-     
 
-        function btn_Logout()
-        {
-            $('#btn_Logout').click(function ()
-            {
+
+        function btn_Logout() {
+            $('#btn_Logout').click(function () {
                 window.close();
             })
         }
@@ -136,13 +128,13 @@
 
 </head>
 
-<body class="contextStyle" onload="bindInformation()" >
+<body class="contextStyle" onload="bindInformation()">
     <div class="container font_common wholeLine">
         <div class="DefaultLine wholeLine" style="height:30px">
             <div class="fl Font_Color_w bold vertical-center">
                 &nbsp;&nbsp;编辑资料
             </div>
-            <div class="fr vertical-center"><a href="#" class="Font_Color_w bold ">注销  &nbsp;&nbsp;  </a></div>
+            <div class="fr vertical-center"><a href="/home/Mainfrm" class="Font_Color_w bold ">返回  &nbsp;&nbsp;  </a></div>
         </div>
         <div class="" style="height:15px">
             <!-- Place holder-->
@@ -157,7 +149,7 @@
                         姓名：
                     </td>
                     <td style="text-align: center; border: solid 1px #999999">
-                        <input type="text" id="txt_NickName" class="txtbox" >
+                        <input type="text" id="txt_NickName" class="txtbox">
                     </td>
                 </tr>
                 <tr class="colMinHeight">
@@ -213,7 +205,7 @@
                 &nbsp;&nbsp;&nbsp;
             </div>
             <div id="btn_Cancel" style="float: left">
-                <input type="button" class="button blue" value="返 回"/>
+                <input type="button" class="button blue" value="返 回" />
             </div>
         </div>
         <!--

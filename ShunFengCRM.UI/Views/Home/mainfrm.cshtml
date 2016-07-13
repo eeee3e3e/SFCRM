@@ -39,6 +39,7 @@
             $('#lb_statusImage').click(function () {
                 window.location.href = "/Home/StatusReminder"
             })
+            CancelLogin();
         });
         function initData() {
             $.post("/Home/MainfrmAjax", null, function (returnData) {
@@ -53,8 +54,13 @@
             })
         }
 
-
-        
+        function CancelLogin() {
+            $('#CancelLogin').click(function () {
+                $.post("/Home/CancelLogin", null, function (data) {
+                    window.location.href = "/Home/Index";
+                })
+            })
+        }
     </script>
 </head>
 
@@ -64,7 +70,7 @@
             <div class="fl Font_Color_w bold vertical-center">
                 &nbsp;&nbsp;<label id="loginName"></label>
             </div>
-            <div class="fr vertical-center"><a href="#" class="Font_Color_w bold " onclick="SysLogin('homeindex.html')">注销  &nbsp;&nbsp;  </a></div>
+            <div class="fr vertical-center"><a href="javascript:" id="CancelLogin" class="Font_Color_w bold ">注销  &nbsp;&nbsp;  </a></div>
         </div>
         <div class="" style="height:15px">
 
@@ -130,18 +136,7 @@
                     </tr>
                 </table>
             </div>
-
-            <!--
-            <div class="Font_Color_w fl" style="width:50%;text-align:center; bottom:50%; font-size:40px; height: 100px " >
-                91
-            </div>
-            <div class="fl ColorFrm fl" style="width:45%; font-size: 25px; border: 1px; ">
-                排名
-            </div>
-            -->
         </div>
-
-
     </div>
     <div class="alignment-center font_common" style=" position:absolute;bottom:20px; left:10%; right:10%">Industry development and management</div>
 </body>
