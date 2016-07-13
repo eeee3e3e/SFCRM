@@ -87,8 +87,8 @@ namespace ShunFengCRM.DAL
                     sqlStr = "insert into T_RqInfo (F_RqID,F_VisitReportID) values (@strRqID,@strVisitReportID)";
                     SqlParameter[] parms3 =
                     {   new SqlParameter("@strRqID", Convert.ToInt32(lsRqItems[0])),
-                            new SqlParameter("@strVisitReportID", i_ID),
-                        };
+                        new SqlParameter("@strVisitReportID", i_ID),
+                    };
                     result = new Tools.SqlHelper().ExecuteNonQuery(sqlStr, parms3, System.Data.CommandType.Text);
                 }
 

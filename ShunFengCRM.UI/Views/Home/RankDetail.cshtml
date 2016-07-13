@@ -31,6 +31,7 @@
     <script type="text/javascript">
         function BindingText()
         {
+            $("#divLevel").html("&nbsp;&nbsp;" + localStorage.getItem("strPosition"));
             SimulationFormRequest();
         }
 
@@ -42,14 +43,15 @@
                     strPosition: localStorage.getItem("strPosition")
                 }
 
-            $.post("/Home/RankByLevel", data, function (returnData) {
+            $.post("/Home/RankByLevelAjax", data, function (returnData) {
                 if (returnData.ReturnTypeStr == "Success") {
                     $("#divContent").html(returnData.Data);
                     return true;
                 }
                 else {
-                    alert("数据加载有误");
-                    alert(returnData.WarnMessage);
+                    //alert("数据加载有误");
+                    //alert(returnData.WarnMessage);
+                    $("#divContent").html(returnData.Data);
                     return false;
                 }
 
@@ -63,19 +65,19 @@
 <body class="background-color:#efefef;" onload="BindingText()">
     <div class="container font_common wholeLine">
         <div class="DefaultLine wholeLine" style="height:30px">
-            <div class="fl Font_Color_w bold vertical-center">
+            <div id="divLevel" class="fl Font_Color_w bold vertical-center">
                 &nbsp;&nbsp;分部经理
             </div>
             <a href="#" class="fr Font_Color_w bold vertical-center ">注销&nbsp;&nbsp;</a>
         </div>
      </div>
         <div class="wholeLine" style="background:#FFFFFF">&nbsp;</div>
-        <div class="DefaultLine wholeLine " id="divContent" style="height:100px">
+        <div id="divContent" style="height:100px;width:90%;margin-left:5%">
 
             
         </div>
 
-        <div class="alignment-center font_common" style=" position:absolute;bottom:20px; left:10%; right:10%">Industry development and management</div>
+        <div class="alignment-center font_common" style="position:absolute;bottom:20px; left:10%; right:10%">Industry development and management</div>
 </body>
 <footer></footer>
 </html>
