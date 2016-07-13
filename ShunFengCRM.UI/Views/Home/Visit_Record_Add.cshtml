@@ -62,7 +62,7 @@
             var td = "";
             for (x in data) {
                 var dataInfo = data[x];
-                $('#spanRq').append("<label onclick='changeStyle(this)' class='uncheckedbox' rqid='" + dataInfo.Id + "'>" + dataInfo.Name + "</label>");
+                $('#spanRq').append("<label onclick='changeStyle(this)' name='RqDiv' class='uncheckedbox' rqid='" + dataInfo.Id + "'>" + dataInfo.Name + "</label>");
                 $('#spanRq').append("&nbsp;&nbsp;&nbsp;&nbsp;");
             }
         }
@@ -119,13 +119,13 @@
             var strClientName = $("#txt_ClientName").val();
             var strMonthlyAccountNo = $("#txt_MonthlyAccountNo").val();
             var strAmount = $("#txt_Amount").val();
-            var strProduct = jQuery("#sel_Product  option:selected").text();
-            var strProfession = jQuery("#sel_Profession  option:selected").text();
-            var strType = jQuery("#sel_Type option:selected").text();
-            var strPhrase = jQuery("#sel_Phrase option:selected").text();
+            var strProduct = jQuery("#sel_Product  option:selected").attr("myid");
+            var strProfession = jQuery("#sel_Profession  option:selected").attr("myid");
+            var strType = jQuery("#sel_Type option:selected").attr("myid");
+            var strPhrase = jQuery("#sel_Phrase option:selected").attr("myid");
             var strCustomerName = $("#strCustomerName").val();
             var strRqArray = "";
-            $("div[name='RqDiv']").each(
+            $("label[name='RqDiv']").each(
                 function () {
                     if ($(this).hasClass("checkedbox")) {
                         strRqArray += $(this).attr("RqID");
@@ -193,7 +193,6 @@
             </div>
             <input type="text" id="txt_MonthlyAccountNo" class="txtbox2" style="padding-top:5px; text-align: center; width:50%;inline-box-align: left  ">
             &nbsp;
-            </label>
         </div>
 
         <div class="vra_field_rows">
@@ -202,7 +201,6 @@
             </div>
             <input type="text" id="txt_Amount" class="txtbox2" style="padding-top:5px; text-align: center; width:50%;inline-box-align: left  ">
             &nbsp;
-            </label>
         </div>
 
         <div style="height:100px ">
@@ -254,7 +252,6 @@
             </div>
             <input type="text" id="strCustomerName" class="txtbox2" style="padding-top:5px; text-align: center; width:50%;inline-box-align: left  ">
             &nbsp;
-            </label>
         </div>
 
 
