@@ -413,7 +413,40 @@ namespace ShunFengCRM.UI.Controllers
 
         public ActionResult VisitRecordEditUpdateAjax(VisitReportUpDateModel input)
         {
-            var data = new DAL.VisitReportRepository().UpdateVisitReport(input);
+            var returnData = new DAL.VisitReportRepository().UpdateVisitReport(input);
+            var data = new ReturnData<bool>()
+            {
+                Data = returnData,
+                ErrorMessage = returnData ? "成功" : "失败",
+                ReturnType = returnData ? ReturnType.Success : ReturnType.Fail,
+                WarnMessage = returnData ? "成功" : "失败",
+            };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult VisitRecordEditUpdateCheckAjax(int Id)
+        {
+            var data = new ReturnData<bool>()
+            {
+                Data = false,
+                ErrorMessage = "失败",
+                ReturnType = ReturnType.Fail,
+                WarnMessage = "不允许修改",
+            };
+            var time = new DAL.VisitReportRepository().GetVisitReportTime(Id);
+            if (time != null)
+            {
+                var startTime = new DateTime(time.Value.Year, time.Value.Month, time.Value.Day);
+                var endTime = new DateTime(time.Value.Year, time.Value.Month, time.Value.Day + 1);
+                if (DateTime.Now >= startTime && DateTime.Now < endTime)
+                {
+                    data.ReturnType = ReturnType.Success;
+                    data.Data = true;
+                    data.ErrorMessage = "成功";
+                    data.WarnMessage = "成功";
+                }
+            }
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 

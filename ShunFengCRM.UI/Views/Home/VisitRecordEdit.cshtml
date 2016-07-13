@@ -34,17 +34,43 @@
         $(function () {
             InitStatic();
             $('#buttonUpdate').click(function () {
-                $('#VisitNote').hide();
-                $('#VisitNoteWrite').show();
-                $('#buttonUpdate').hide();
-                $('#buttonUpdateFishin').show();
-                $('#MonthlyAccount').removeAttr("readonly");
-                $('#ProAmount').removeAttr("readonly");
-                $('#MonthlyAccount').removeClass("txtbox2");
-                $('#ProAmount').removeClass("txtbox2");
+                var data = {
+                    Id: $('#reportId').val(),
+                }
+                $.post("/Home/VisitRecordEditUpdateCheckAjax", data, function (returnData) {
+                    if (returnData.ReturnTypeStr != "Success") {
+                        alert(returnData.WarnMessage);
+                        return;
+                    }
+                    $('#VisitNote').hide();
+                    $('#VisitNoteWrite').show();
+                    $('#buttonUpdate').hide();
+                    $('#buttonUpdateFishin').show();
+                    $('#MonthlyAccount').removeAttr("readonly");
+                    $('#ProAmount').removeAttr("readonly");
+                    $('#MonthlyAccount').removeClass("txtbox2");
+                    $('#ProAmount').removeClass("txtbox2");
+                })
             });
             $('#buttonUpdateFishin').click(function () {
-                $.post("/Home/VisitRecordEditUpdateAjax", null, function (returnData) {
+                var rqs = $("#spanRq label.checkedbox");
+                var rqIds = "";
+                for (var i = 0; i < rqs.length; i++) {
+                    rqIds += $(rqs[i]).attr("myId") + ",";
+                }
+                var input = {
+                    ReportId: $('#reportId').val(),
+                    MonthlyAccount: $('#MonthlyAccount').val(),
+                    ProAmount: $('#ProAmount').val(),
+                    ProductId: $("#product option:selected").attr("myId"),
+                    ProfessionId: $("#profession option:selected").attr("myId"),
+                    VisitKind: $("#visitKind option:selected").attr("myId"),
+                    PhraseId: $("#phrase option:selected").attr("myId"),
+                    RqIdsStr: rqIds,
+                    VisitPersonName: $('#visitPerson').val(),
+                    Remark: $('#visitNote').val(),
+                }
+                $.post("/Home/VisitRecordEditUpdateAjax", input, function (returnData) {
                     if (returnData.ReturnTypeStr != "Success") {
                         alert(returnData.WarnMessage);
                         return;
@@ -104,12 +130,16 @@
                 $('#spanRq').append("&nbsp;&nbsp;&nbsp;&nbsp;");
             }
         }
+
+
         function DecideOption(Id, compareId) {
             var options = $('#' + Id + ' option').each(function () {
                 $(this).attr('myId') == compareId,
                 $(this).attr("selected", true);
             });
         }
+
+
         function RequireClick(object) {
             if ($(object).hasClass('uncheckedbox')) {
                 $(object).removeClass('uncheckedbox');

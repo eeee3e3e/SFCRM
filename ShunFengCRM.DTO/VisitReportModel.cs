@@ -11,10 +11,13 @@ namespace ShunFengCRM.DTO
         public VisitReportModel()
         {
             RemarkInfos = new List<RemarkInfo>();
+            RqIds = new List<int>();
         }
 
         public string CustomerName { get; set; }
 
         public ICollection<RemarkInfo> RemarkInfos { get; set; }
+
+        public ICollection<int> RqIds { get; set; }
     }
 }

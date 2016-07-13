@@ -1,12 +1,4 @@
-﻿@{
-    Layout = null;
-}
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-          "http://www.w3.org/TR/html4/strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+﻿<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -39,25 +31,60 @@
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript">
-        function checkListItem()
-        {
+
+        $(function () {
+            InitStatic();
+
+        })
+
+        function InitStatic() {
+            $.post("/Home/VisitRecordEditStaticAjax", null, function (returnData) {
+                if (returnData.ReturnTypeStr != "Success") {
+                    alert(returnData.WarnMessage);
+                    return;
+                }
+                InitStaticInfo('sel_Product', returnData.Data.Product)
+                InitStaticInfo('sel_Phrase', returnData.Data.Phrase)
+                InitStaticInfo('sel_Type', returnData.Data.VisitKind)
+                InitStaticInfo('sel_Profession', returnData.Data.Profession)
+                InitRq(returnData.Data.Rq);
+            })
+        }
+
+        function InitStaticInfo(Id, data) {
+            for (x in data) {
+                var dataInfo = data[x];
+                $('#' + Id).append("<option myId='" + dataInfo.Id + "'>" + dataInfo.Name + "</option>");
+            }
+        }
+
+        function InitRq(data) {
+            var td = "";
+            for (x in data) {
+                var dataInfo = data[x];
+                $('#spanRq').append("<label onclick='changeStyle(this)' class='uncheckedbox' rqid='" + dataInfo.Id + "'>" + dataInfo.Name + "</label>");
+                $('#spanRq').append("&nbsp;&nbsp;&nbsp;&nbsp;");
+            }
+        }
+
+
+
+        function checkListItem() {
             var bChecked = 0;
             $("div[name='RqDiv']").each(
                 function () {
                     if ($(this).hasClass("checkedbox")) {
                         bChecked++;
                     }
-                    
+
                 }
             )
 
-            if ($("#txt_ClientName").val().trim() == "")
-            {
+            if ($("#txt_ClientName").val().trim() == "") {
                 alert("请输入客户名称");
                 return false;
             }
-            else if ($("#strCustomerName").val().trim() == "")
-            {
+            else if ($("#strCustomerName").val().trim() == "") {
                 alert("请输入拜访人信息");
                 return false;
             }
@@ -67,13 +94,12 @@
                 return false;
             }
 
-            else { return true;}
-            
+            else { return true; }
+
 
         }
 
-        function changeStyle(obj)
-        {
+        function changeStyle(obj) {
             if ($(obj).hasClass("checkedbox")) {
                 $(obj).removeClass("checkedbox");
                 $(obj).addClass("uncheckedbox");
@@ -86,8 +112,7 @@
 
         function SubmitInfo() {
 
-            if (!checkListItem())
-            {
+            if (!checkListItem()) {
                 return false;
             }
             //获取已经填写的数据
@@ -101,10 +126,8 @@
             var strCustomerName = $("#strCustomerName").val();
             var strRqArray = "";
             $("div[name='RqDiv']").each(
-                function ()
-                {
-                    if ($(this).hasClass("checkedbox"))
-                    {
+                function () {
+                    if ($(this).hasClass("checkedbox")) {
                         strRqArray += $(this).attr("RqID");
                         strRqArray += "*";
                         strRqArray += $(this).attr("RqName");
@@ -112,21 +135,21 @@
                     }
                 }
             )
-            strRqArray = strRqArray.substring(0, strRqArray.length-1)
+            strRqArray = strRqArray.substring(0, strRqArray.length - 1)
             var strRemark = $("#txt_Remark").val();
 
             var data =
                {
                    strClientName: strClientName,
-                   strMonthlyAccountNo:strMonthlyAccountNo,
-                   strAmount:strAmount,
-                   strProduct:strProduct,
-                   strProfession:strProfession,
-                   strType:strType,
-                   strPhrase:strPhrase,
-                   strCustomerName:strCustomerName,
-                   strRqArray:strRqArray,
-                   strRemark:strRemark,
+                   strMonthlyAccountNo: strMonthlyAccountNo,
+                   strAmount: strAmount,
+                   strProduct: strProduct,
+                   strProfession: strProfession,
+                   strType: strType,
+                   strPhrase: strPhrase,
+                   strCustomerName: strCustomerName,
+                   strRqArray: strRqArray,
+                   strRemark: strRemark,
                }
 
             $.post("/Home/VisitRecordAdd", data, function (returnData) {
@@ -142,11 +165,7 @@
 
             })
         }
-
-
     </script>
-
-
 </head>
 
 <body class="contextStyle" onload="">
@@ -165,7 +184,7 @@
                 客户名称:
             </div>
             <input type="text" id="txt_ClientName" class="txtbox2" style="padding-top:5px; text-align: center; width:50%;inline-box-align: left  ">
-            
+
         </div>
 
         <div class="vra_field_rows">
@@ -195,12 +214,8 @@
                     <div class="fl" style="inline-box-align: left">
                         产品:
                     </div>
-                    <div   class="fl ddl_div" style="inline-box-align: left; margin-right: 20%">
-                        <select id="sel_Product" class="ddl">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
+                    <div class="fl ddl_div" style="inline-box-align: left; margin-right: 20%">
+                        <select id="sel_Product" class="ddl"></select>
                     </div>
                     <!--place holder-->
 
@@ -208,11 +223,7 @@
                         行业:
                     </div>
                     <div class="ddl" style="inline-box-align: left">
-                        <select id="sel_Profession" class="ddl">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
+                        <select id="sel_Profession" class="ddl"></select>
                     </div>
                 </div>
 
@@ -220,25 +231,17 @@
                 <div style="height:15px"></div>
                 <div style="width:100%;height:30px;">
 
-                    <div class="fl"  style="inline-box-align: left; ">
+                    <div class="fl" style="inline-box-align: left; ">
                         类型:
                     </div>
                     <div class="fl ddl_div" style="inline-box-align: left; margin-right: 20%">
-                        <select id="sel_Type" class="ddl">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
+                        <select id="sel_Type" class="ddl"></select>
                     </div>
                     <div class="fl" style="inline-box-align: left">
                         阶段:
                     </div>
                     <div class="fl ddl_div" style="inline-box-align:left ">
-                        <select id="sel_Phrase" class="ddl">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
+                        <select id="sel_Phrase" class="ddl"></select>
                     </div>
                 </div>
 
@@ -257,29 +260,16 @@
 
 
         <div class="vra_field_rows">
-            <div class="fl vra_field_label" >
+            <label style="margin-left:38px">
                 需求:
-            </div>
-            <div class="fl checkedbox" onclick="changeStyle(this)" name="RqDiv" RqID="1" RqName="系统">
-                系统
-            </div>
-            <div class="fl checkedbox" onclick="changeStyle(this)" name="RqDiv" RqID="2" RqName="价格">
-                价格
-            </div>
-            <div class="fl checkedbox" onclick="changeStyle(this)" name="RqDiv" RqID="3" RqName="时效">
-                时效
-            </div>
-            <div class="fl uncheckedbox" onclick="changeStyle(this)" name="RqDiv" RqID="4" RqName="营运">
-                营运
-            </div>
+            </label>
+            <span id="spanRq"></span>
         </div>
-
-
         <div class="vra_field_rows" style="margin-top:20px">
             <div class="fl vra_field_label">
                 备注:
             </div>
-            <textarea class="fl" id="txt_Remark"  style="margin-top:10px; width:50%; height:60px;text-overflow:ellipsis"></textarea>
+            <textarea class="fl" id="txt_Remark" style="margin-top:10px; width:50%; height:60px;text-overflow:ellipsis"></textarea>
         </div>
 
         <div>

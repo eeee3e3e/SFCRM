@@ -8,10 +8,6 @@ namespace ShunFengCRM.DTO
 {
     public class VisitReportUpDateModel
     {
-        public VisitReportUpDateModel()
-        {
-            RqIds = new List<int>();
-        }
 
         public int ReportId { get; set; }
 
@@ -27,7 +23,7 @@ namespace ShunFengCRM.DTO
 
         public int PhraseId { get; set; }
 
-        public ICollection<int> RqIds { get; set; }
+        public string RqIdsStr { get; set; }
 
         public string VisitPersonName { get; set; }
 
