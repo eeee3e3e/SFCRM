@@ -232,7 +232,8 @@ select F_ID,F_StaffID from dbo.T_VisitReport where F_VisitDate>=@visitDate and F
 
             StringBuilder sb = new StringBuilder();
             sb.Append(string.Format("delete  [SF_CRM].[dbo].[T_RqInfo] where F_VisitReportID={0} ", input.ReportId));
-            foreach (var item in input.RqIds)
+            var rqIds = input.RqIdsStr.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var item in rqIds)
             {
                 sb.Append(string.Format("insert into [SF_CRM].[dbo].[T_RqInfo] values({0},{1}) ", item, input.ReportId));
             }
@@ -263,7 +264,7 @@ select F_ID,F_StaffID from dbo.T_VisitReport where F_VisitDate>=@visitDate and F
                 new SqlParameter("@Remark",input.Remark),
 
             };
-            var result = new Tools.SqlHelper().ExecuteNonQuery("UpdateDate", parms, System.Data.CommandType.Text);
+            var result = new Tools.SqlHelper().ExecuteNonQuery("UpdateDate", parms, System.Data.CommandType.StoredProcedure);
             if (result > 0)
                 return false;
             else
@@ -335,6 +336,21 @@ select F_ID,F_StaffID from dbo.T_VisitReport where F_VisitDate>=@visitDate and F
                 returnData.RemarkInfos.Add(model);
             }
             return returnData;
+        }
+
+        public Nullable<DateTime> GetVisitReportTime(int id)
+        {
+            var sqlStr = "SELECT [F_VisitDate] FROM [SF_CRM].[dbo].[T_VisitReport]  where F_ID=@Id ";
+            SqlParameter[] parms =
+            {
+                new SqlParameter("@Id",id),
+            };
+            var result = new Tools.SqlHelper().ExecuteQuery(sqlStr, parms, System.Data.CommandType.Text);
+            if (result.Rows.Count != 1)
+            {
+                return null;
+            }
+            return Convert.ToDateTime(result.Rows[0].ItemArray[0].ToString());
         }
     }
 }
