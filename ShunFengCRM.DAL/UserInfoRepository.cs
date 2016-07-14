@@ -149,13 +149,12 @@ left join T_Orgnization org on ud.F_OrgCode=org.F_ID where ui.F_ID=1*/
             string strDateEnd = DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-"+ DateTime.Now.Day.ToString();
             string sqlStr= @"select * from 
                             (
-                                select  distinct row_number() over(order by (select 0)) as RankID, ud.F_Name, ut.F_Name as strLevel,ui.F_ID as F_ID, org.F_OrgName as F_OrgName, count(*) as TotalVisit 
-                                from T_UserInfo ui left join T_VisitReport vr
+                                select  distinct row_number() over(order by (select 0)) as RankID, ud.F_Name, ut.F_Name as strLevel,ui.F_ID as F_ID, org.F_OrgName as F_OrgName, sum (case when vr.F_ID is null then 0 else 1 end)as TotalVisit 
+                                from T_UserInfo ui left join (select * from T_VisitReport where F_VisitDate between @strDateStart and @strDateEnd) vr
                                 on vr.F_StaffID = ui.F_ID left join T_UserType ut 
                                 on ui.F_TypeID=ut.F_TypeID 
                                 left join T_UserDetail ud on ui.F_ID=ud.F_ID
-                                left join T_Orgnization org on ud.F_OrgCode=org.F_ID where
-                                vr.F_VisitDate between @strDateStart and @strDateEnd and ut.F_Name=@strPosition 
+                                left join T_Orgnization org on ud.F_OrgCode=org.F_ID where ut.F_Name=@strPosition 
                                 group by ui.F_ID,ut.F_Name,ui.f_id, ud.F_Name,org.F_OrgName
                              )       
                                 tb order by TotalVisit desc";
