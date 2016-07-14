@@ -201,7 +201,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\CommonJs\.jscsrc" />
     <Content Include="Scripts\CommonJs\.jshintrc" />
-    <Content Include="Views\Home\SuccessLogin.cshtml" />
     <Content Include="Views\Home\Advertisement.cshtml" />
     <Content Include="Views\Home\mainfrm.cshtml" />
     <Content Include="Views\Home\PersonalEdit.cshtml" />

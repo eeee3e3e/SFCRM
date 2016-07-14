@@ -1,109 +1,81 @@
-.DefaultLine
-{
-	
-	background-color: #2575CF;
-	
+.DefaultLine {
+    background-color: #2575CF;
 }
 
-.DefaultLine_Height
-{
-	height:30px;
-}
-.Font_Color_w
-{
-	color: white;
+.DefaultLine_Height {
+    height: 30px;
 }
 
-.Td_Hori_Center
-{
-	left:30%;
-	right:30%;
+.Font_Color_w {
+    color: white;
 }
 
-.ColorFrm
-{
-	border: 1px;
-	-moz-border-radius: 6px; 
-	-webkit-border-radius: 6px;
+.Td_Hori_Center {
+    left: 30%;
+    right: 30%;
+}
+
+.ColorFrm {
+    border: 1px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
 }
 
 /*define the height of td element*/
-.colHeight
-{
-	height:120px;
-	border: solid 1px #999999;
+.colHeight {
+    height: 120px;
+    border: solid 1px #999999;
 }
 
-.colMiddleHeight
-{
-	height:60px;
-	border:solid 1px #999999;	
+.colMiddleHeight {
+    height: 60px;
+    border: solid 1px #999999;
 }
 
 
-.colMinHeight
-{
-	height:30px;
-	border:solid 1px #999999;
+.colMinHeight {
+    height: 30px;
+    border: solid 1px #999999;
 }
 
-.plaintrow
-{
-	height: 30px;
-	background-color:ffffff
+.plaintrow {
+    height: 30px;
+    background-color: #ffffff;
 }
 
-.bluerow
-{
-	height:30px;
-	background-color:#2575CF
+.bluerow {
+    height: 30px;
+    background-color: #2575CF;
 }
 
 .Absolute-Center {
-  width: 50%;
-  overflow: auto;
-  margin: auto;
-  position: relative;
-  left: 0; top: 20px; right: 0;
+    width: 50%;
+    overflow: auto;
+    margin: auto;
+    position: relative;
+    left: 0;
+    top: 20px;
+    right: 0;
 }
 
-.txtbox
-{
-border-top-width :0px;
-border-left-width :0px;
-border-right-width :0px;
-border-bottom-width:1px;
-font-size: 12px;
-color: black;
-background-color: #9ACFEA;
-border-bottom: mediumpurple thin solid;
-font-style:normal;
-line-height:normal;
-height:18px;
-font-variant:normal;
-font-weight :normal;
-}
-
-.txtbox2
-{
-border-top-width :0px;
-border-left-width :0px;
-border-right-width :0px;
-border-bottom-width:1px;
-font-size: 18px;
-color: black;
-background-color: #EFEEEE;
-border-bottom: black thin solid;
-font-style:normal;
-line-height:normal;
-height:18px;
-font-variant:normal;
-font-weight :normal;
+.txtbox2 {
+    border-top-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 1px;
+    font-size: 15px;
+    color: black;
+    background-color: #EFEEEE;
+    border-bottom: black thin solid;
+    font-style: normal;
+    line-height: normal;
+    height: 25px;
+    font-variant: normal;
+    font-weight: normal;
 }
 
 /*add by lu jie*/
 /*字体颜色黑色*/
-.Font_Color_b
-{
-	color: black;
+.Font_Color_b {
+    color: black;
 }

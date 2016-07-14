@@ -22,20 +22,15 @@
 
 
     <script type="text/javascript">
-        function BindingText()
-        {
+        function BindingText() {
             $("#divLevel").html("&nbsp;&nbsp;" + localStorage.getItem("strPosition"));
             SimulationFormRequest();
         }
-
-        function SimulationFormRequest()
-        {
-            
+        function SimulationFormRequest() {
             var data =
                 {
                     strPosition: localStorage.getItem("strPosition")
                 }
-
             $.post("/Home/RankByLevelAjax", data, function (returnData) {
                 if (returnData.ReturnTypeStr == "Success") {
                     $("#divContent").html(returnData.Data);
@@ -47,10 +42,8 @@
                     $("#divContent").html(returnData.Data);
                     return false;
                 }
-
             })
         }
-
     </script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
@@ -63,14 +56,10 @@
             </div>
             <a href="/home/Mainfrm" class="fr Font_Color_w bold vertical-center ">返回&nbsp;&nbsp;</a>
         </div>
-     </div>
-        <div class="wholeLine" style="background:#FFFFFF">&nbsp;</div>
-        <div id="divContent" style="height:100px;width:90%;margin-left:5%">
-
-            
-        </div>
-
-        <div class="alignment-center font_common" style="position:absolute;bottom:20px; left:10%; right:10%">Industry development and management</div>
+    </div>
+    <div class="wholeLine" style="background:#FFFFFF">&nbsp;</div>
+    <div id="divContent" style="height:100px;width:90%;margin-left:5%">
+    </div>
+    <div class="alignment-center font_common" style="position:absolute;bottom:20px; left:10%; right:10%">Industry development and management</div>
 </body>
-<footer></footer>
 </html>

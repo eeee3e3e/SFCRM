@@ -110,7 +110,7 @@ namespace ShunFengCRM.UI.Controllers
         {
             var strID = Class.Tools.CookieHelper.GetCookie("userId");
 
-            var userInfo = new ShunFengCRM.DAL.UserInfoRepository().EditUser(strID,strPassword);
+            var userInfo = new ShunFengCRM.DAL.UserInfoRepository().EditUser(strID, strPassword);
             ReturnData<string> data = null;
 
 
@@ -343,26 +343,11 @@ namespace ShunFengCRM.UI.Controllers
                             {
                                 iFlag = 1;  //判断身份标准
                             }
-
-                            //顶部信息
-                            // strHtml += @"<div class='container font_common wholeLine'>
-                            //   < div class='DefaultLine wholeLine' style='height:30px'>
-                            //       <div class='fl Font_Color_w bold vertical-center'>
-                            //           &nbsp;&nbsp;" + 分部经理 + @"
-                            //       </div>
-                            //       <a href = '#' class='fr Font_Color_w bold vertical-center'>注销&nbsp;&nbsp;</a>
-                            //   </div>
-                            //</div>
-                            //   <div class='wholeLine' style='background:#FFFFFF'>&nbsp;</div>
-                            //   <div class='DefaultLine wholeLine' id='divContent' style='height:100px'>";
-
-
-                            //write html
                             strHtml += @"<div class='DefaultLine' style='height: 80px;'>
-                                               <label class='vertical-center Font_Color_w' style=' text-align: center;font-size: 30px;height:80px; width: 40%'> 
+                                               <label class='vertical-center Font_Color_w' style=' text-align: center;font-size: 20px;height:80px; width: 40%;'> 
   				                                " + RankInfo.Rows[iCount]["TotalVisit"].ToString() + @"
   			                                </label>
-			                                 <label class='vertical-center Font_Color_w' style='text-align: left;font-size: 25px;height:60px; width: 40%:overflow:auto'> 
+			                                 <label class='vertical-center Font_Color_w' style='text-align: left;font-size: 20px;height:60px; width: 40%;'> 
   					                               " + RankInfo.Rows[iCount]["RankID"].ToString() + ". " + RankInfo.Rows[iCount]["F_OrgName"].ToString() + "-" + RankInfo.Rows[iCount]["F_Name"].ToString() + @"
                                               </label>
   		                                </div>	";
