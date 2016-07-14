@@ -134,8 +134,9 @@
 
         function DecideOption(Id, compareId) {
             var options = $('#' + Id + ' option').each(function () {
-                $(this).attr('myId') == compareId,
-                $(this).attr("selected", true);
+                if ($(this).attr('myId') == compareId) {
+                    $(this).attr("selected", true);
+                }
             });
         }
 
