@@ -210,6 +210,7 @@
     <Content Include="Views\Home\Visit_Record_Add.cshtml" />
     <Content Include="Views\Home\VisitRecordEdit.cshtml" />
     <Content Include="Views\Home\Visit_Record_List.cshtml" />
+    <None Include="Properties\PublishProfiles\LocalYang.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
