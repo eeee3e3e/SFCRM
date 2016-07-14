@@ -185,10 +185,10 @@ select F_ID,F_StaffID from dbo.T_VisitReport where F_VisitDate>=@visitDate and F
 
         public DataTable ShowReportListByCond(int userId, string keys)
         {
-            string sqlStr = @"  select vr.F_ClientName, tr.F_CustomerName,vr.F_VisitDate,vr.F_ID 
+            string sqlStr = @"  select distinct vr.F_ClientName,vr.F_VisitDate,vr.F_ID,Max(tr.F_CustomerName) as F_CustomerName
                                 from T_VisitReport vr left join  T_Remark tr on vr.F_ID=tr.F_VisitReportID
                                 where vr.F_StaffID=@strUserID and F_ClientName like '%" + keys + @"%'
-                                order by F_VisitDate desc";
+                                group by vr.F_ClientName,vr.F_VisitDate,vr.F_ID order by F_VisitDate desc";
 
             SqlParameter[] parms =
             {
