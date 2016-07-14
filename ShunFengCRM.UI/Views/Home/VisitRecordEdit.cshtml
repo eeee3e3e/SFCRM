@@ -152,7 +152,7 @@
         function VisitNote(data) {
             for (x in data) {
                 var dataInfo = data[x];
-                var appendStr = '<div style="margin-bottom:35px"><div><label>拜访人:</label><label>' + dataInfo.VisitPersonName + '(' + dataInfo.TimeStr + ')' + '</label></div><div><label>拜访记录:</label> <label>' + dataInfo.Remark + '</label></div></div>'
+                var appendStr = '<div style="margin-bottom:15px"><div><label  style="width:80px">拜访记录:</label><label style="color:red">' + dataInfo.VisitPersonName + '(' + dataInfo.TimeStr + ')' + '</label></div><div><label  style="width:80px">备注:</label> <label>' + dataInfo.Remark + '</label></div></div>'
                 $('#VisitNote').append(appendStr);
             }
         }
@@ -215,7 +215,7 @@
             <span id="spanRq"></span>
         </div>
 
-        <div id="VisitNote">
+        <div style="margin-top:10px;" id="VisitNote">
 
         </div>
         <div id="VisitNoteWrite" style="display:none">
@@ -225,8 +225,8 @@
                 </label>
                 <input type="text" id="visitPerson" class="txtbox2" style="padding-top:5px; text-align: center;width:70%;">
                 <div>
-                    <div style="float:left"><label>拜访记录:</label></div>
-                    <textarea id="visitNote" style="width:70%;height:60px;"></textarea>
+                    <div style="float:left"><label>备注:</label></div>
+                    <textarea id="txt_Remark" style="width:70%;height:60px; margin-left:10px"></textarea>
                 </div>
             </div>
         </div>
