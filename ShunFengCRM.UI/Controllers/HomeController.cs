@@ -247,6 +247,7 @@ namespace ShunFengCRM.UI.Controllers
                 //edit successful
                 for (int iCount = 0; iCount < ReportList.Rows.Count; iCount++)
                 {
+                    DateTime dtime = Convert.ToDateTime((ReportList.Rows[iCount]["F_VisitDate"].ToString()));
                     strReturn += @"<tr style='width: 100 %; onclick='SysLogin('Visit_Record_Edit')' '> ";
                     strReturn += @"<td style = 'text-align: center;'> ";
                     strReturn += @"<div onclick='turnPage(" + ReportList.Rows[iCount]["F_ID"] + ")'>";
@@ -262,7 +263,7 @@ namespace ShunFengCRM.UI.Controllers
                     strReturn += @"<td>";
                     strReturn += @"<div style = 'border-bottom: 1px dotted  #245580 ; border-radius: 5px;text-align: right'>";
                     strReturn += @"<div class='fr vrl_items'>";
-                    strReturn += ReportList.Rows[iCount]["F_VisitDate"].ToString();
+                    strReturn += dtime.Year.ToString() + "-" + dtime.Month.ToString() + "-" + dtime.Day.ToString();
                     strReturn += @"</div>";
                     strReturn += @"<div id ='' class='fr vrl_items' style=''>录入时间：</div>";
                     strReturn += @"</div>";
@@ -435,6 +436,7 @@ namespace ShunFengCRM.UI.Controllers
                 //edit successful
                 for (int iCount = 0; iCount < ReportList.Rows.Count; iCount++)
                 {
+                    DateTime dtime = Convert.ToDateTime((ReportList.Rows[iCount]["F_VisitDate"].ToString()));
                     strReturn += @"<tr style='width: 100 %; onclick='SysLogin('Visit_Record_Edit')' '> ";
                     strReturn += @"<td style = 'text-align: center;'> ";
                     strReturn += @"<div onclick='turnPage(" + ReportList.Rows[iCount]["F_ID"] + ")'>";
@@ -450,7 +452,7 @@ namespace ShunFengCRM.UI.Controllers
                     strReturn += @"<td>";
                     strReturn += @"<div style = 'border-bottom: 1px dotted  #245580 ; border-radius: 5px;text-align: right'>";
                     strReturn += @"<div class='fr vrl_items'>";
-                    strReturn += ReportList.Rows[iCount]["F_VisitDate"].ToString();
+                    strReturn += dtime.Year.ToString() + "-" + dtime.Month.ToString() + "-" + dtime.Day.ToString();
                     strReturn += @"</div>";
                     strReturn += @"<div id ='' class='fr vrl_items' style=''>录入时间：</div>";
                     strReturn += @"</div>";
