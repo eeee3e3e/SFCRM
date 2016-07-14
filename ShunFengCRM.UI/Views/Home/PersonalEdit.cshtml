@@ -1,18 +1,11 @@
-﻿@{
-    Layout = null;
-}
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-          "http://www.w3.org/TR/html4/strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+﻿<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
     <meta name="description" content="">
     <meta name="author" content="XHRT">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="/favicon.ico">
 
     <title>SF Logistics CRM system</title>
 
@@ -25,25 +18,10 @@
     <link href="~/Content/CommonCss/css/base.css" rel="stylesheet">
     <!--cite javascript-->
     <script type="text/javascript" src="~/Scripts/CommonJs/js/jquery-3.0.0.min.js"></script>
-
-    <!-- Custom styles for this template -->
-    <!-- <link href="starter-template.css" rel="stylesheet"> -->
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <!-- <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
     <script type="text/javascript">
         function btn_Login() {
             SimulationFormRequest();
         }
-        $(function () {
-            //btn_Logout();
-            // btn_Modify();
-        })
         //赵凯，2016.07.06，清空text内容
         function textClear() {
             $("input[type='text']").focus(
@@ -51,11 +29,8 @@
                     $(this).val("");
                 });
         }
-
         //YangDu 绑定数据
         function bindInformation() {
-
-
             $.getJSON("/Home/BindingPersonalInfo", function (returnData) {
                 var strJson = returnData.Data;
                 var items = jQuery.parseJSON(strJson);
@@ -63,27 +38,17 @@
                 $("#txt_StaffNo").attr('value', items.StaffNo);
                 $("#txt_OrgNo").attr("value", items.OrgCode);
                 $("#txt_OrgName").attr("value", items.OrgName);
-
-
             });
-
         }
 
         //赵凯，2016.07.06，模拟表单请求
         function SimulationFormRequest() {
             var txt_ps = $("#txt_ps").val(); //acquire the password
             var txt_ps_confirmation = $("#txt_ps_confirmation").val();
-
-            //get information from cookie
-            //var txt_us =
-
             checkPs(txt_ps, txt_ps_confirmation);
-
             var data = {
-                //strUsername: txt_us,
                 strPassword: txt_ps_confirmation,
             }
-
             $.post("/Home/PersonalEditAjax", data, function (returnData) {
                 if (returnData.ReturnTypeStr == "Success") {
                     alert("密码修改成功");
@@ -98,7 +63,6 @@
 
             })
         }
-
         function checkPs(strPs, strPsComfirmation) {
             if (strPs || strPsComfirmation != "") {
                 if (strPs != strPsComfirmation) {
@@ -139,8 +103,6 @@
         <div class="" style="height:15px">
             <!-- Place holder-->
         </div>
-
-        <!-- personal information edit-->
         <div style="width:100%; height:250px;background-color:#9ACFEA; text-align: center">
 
             <table class="Absolute-Center" style="width:80%; border: solid 1px #999999">
@@ -193,32 +155,11 @@
                     </td>
                 </tr>
             </table>
-
-
         </div>
-        <div class="Absolute-Center">
-            <div id="btn_Modify" style="float: left">
-                <input id="btnModify" type="button" class="button blue" onclick="btn_Login()" value="完 成" />
-            </div>
-
-            <div id="btn_PlaceHolderLength" style="width:15px; float: left">
-                &nbsp;&nbsp;&nbsp;
-            </div>
-            <div id="btn_Cancel" style="float: left">
-                <input type="button" class="button blue" value="返 回" />
-            </div>
+        <div class="Absolute-Center" align="center" style="margin-top:25px">
+            <input id="btnModify" type="button" class="button blue" onclick="btn_Login()" value="完 成" />
         </div>
-        <!--
-        <div class="Font_Color_w fl" style="width:50%;text-align:center; bottom:50%; font-size:40px; height: 100px " >
-            91
-        </div>
-        <div class="fl ColorFrm fl" style="width:45%; font-size: 25px; border: 1px; ">
-            排名
-        </div>
-        -->
-    </div>
     </div>
     <div class="alignment-center font_common" style=" position:absolute;bottom:20px; left:10%; right:10%">Industry development and management</div>
 </body>
-<footer></footer>
 </html>

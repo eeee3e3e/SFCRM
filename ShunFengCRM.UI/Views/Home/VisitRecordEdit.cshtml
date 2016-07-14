@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
     <meta name="description" content="">
     <meta name="author" content="XHRT">
     <link rel="icon" href="../../favicon.ico">
@@ -20,16 +20,6 @@
     <!--cite javascript-->
     <script type="text/javascript" src="~/Scripts/CommonJs/js/jquery-3.0.0.min.js"></script>
 
-    <!-- Custom styles for this template -->
-    <!-- <link href="starter-template.css" rel="stylesheet"> -->
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <!-- <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
     <script type="text/javascript">
         $(function () {
             InitStatic();
@@ -132,12 +122,16 @@
         }
 
 
+
+
+
         function DecideOption(Id, compareId) {
-            var options = $('#' + Id + ' option').each(function () {
-                if ($(this).attr('myId') == compareId) {
-                    $(this).attr("selected", true);
+            var options = $("#" + Id).children();
+            for (var i = 0; i < options.length; i++) {
+                if ($(options[i]).attr("myId") == compareId) {
+                    $(options[i]).prop("selected", true);
                 }
-            });
+            }
         }
 
 
@@ -158,7 +152,7 @@
         function VisitNote(data) {
             for (x in data) {
                 var dataInfo = data[x];
-                var appendStr = '<div style="margin-bottom:35px" class="vra_field_rows"><div><label>拜访人:</label><label>' + dataInfo.VisitPersonName + '(' + dataInfo.TimeStr + ')' + '</label></div><div><label>拜访记录:</label> <label>' + dataInfo.Remark + '</label></div></div>'
+                var appendStr = '<div style="margin-bottom:35px"><div><label>拜访人:</label><label>' + dataInfo.VisitPersonName + '(' + dataInfo.TimeStr + ')' + '</label></div><div><label>拜访记录:</label> <label>' + dataInfo.Remark + '</label></div></div>'
                 $('#VisitNote').append(appendStr);
             }
         }
@@ -175,60 +169,46 @@
         </div>
         <div style="height:15px">
         </div>
-        <div class="vra_field_rows">
-            <label>客户名称:</label>
-            <label class="txtbox2" id="CustomerName"></label>
+        <div>
+            <label style="text-align:left;width:auto" class="vra_field_label">
+                客户名称:
+            </label>
+            <label id="CustomerName"></label>
         </div>
-        <div class="vra_field_rows">
-            <label>月结账号:</label>
-            <input type="text" class="txtbox2" id="MonthlyAccount" readonly="readonly">
+        <div>
+            <label style="text-align:left;width:auto" class="vra_field_label">
+                月结账号:
+            </label>
+            <input type="text" id="MonthlyAccount" class="txtbox2" readonly="readonly" style="padding-top:5px; text-align: center;width:70%;">
+        </div>
+        <div>
+            <label style="text-align:left;width:auto" class="vra_field_label">
+                潜力金额:
+            </label>
+            <input type="text" id="ProAmount" class="txtbox2" readonly="readonly" style="padding-top:5px; text-align: center;width:70%;">
         </div>
 
-        <div class="vra_field_rows">
-            <label>潜力金额:</label>
-            <input type="text" class="txtbox2" id="ProAmount" readonly="readonly">
-        </div>
-        <div style="height:100px ">
-            <div style="padding-left:55px">
-                <div style="height:15px"></div>
-                <div style="width:100%;height:30px;inline-box-align: left">
-
-                    <div class="fl" style="inline-box-align: left">
-                        产品:
-                    </div>
-                    <div class=" fl ddl_div" style="inline-box-align: left; margin-right: 20%">
-                        <select class="ddl" id="product"></select>
-                    </div>
-                    <!--place holder-->
-
-                    <div class="fl" style="inline-box-align: left">
-                        行业:
-                    </div>
-                    <div class="ddl" style="inline-box-align: left">
-                        <select class="ddl" id="profession"></select>
-                    </div>
-                </div>
-                <div style="height:15px"></div>
-                <div style="width:100%;height:30px;">
-
-                    <div class="fl" style="inline-box-align: left; ">
-                        类型:
-                    </div>
-                    <div class="fl ddl_div" style="inline-box-align: left; margin-right: 20%">
-                        <select class="ddl" id="visitKind"></select>
-                    </div>
-                    <div class="fl" style="inline-box-align: left">
-                        阶段:
-                    </div>
-                    <div class="fl ddl_div" style="inline-box-align: ">
-                        <select class="ddl" id="phrase"></select>
-                    </div>
-                </div>
-
+        <div style="padding-top:10px">
+            <div style="float:left;margin-right:30px;">
+                <label>产品:</label>
+                <select id="product" class="ddl" style="width:80px"></select>
             </div>
-
+            <div>
+                <label>行业:</label>
+                <select id="profession" class="ddl" style="width:80px"></select>
+            </div>
+            <div style="height:15px">
+            </div>
+            <div style="float:left;margin-right:30px;">
+                <label>类型:</label>
+                <select id="visitKind" class="ddl" style="width:80px"></select>
+            </div>
+            <div>
+                <label>阶段:</label>
+                <select id="phrase" class="ddl" style="width:80px"></select>
+            </div>
         </div>
-        <div class="vra_field_rows">
+        <div>
             <label>
                 需求:
             </label>
@@ -236,16 +216,17 @@
         </div>
 
         <div id="VisitNote">
+
         </div>
         <div id="VisitNoteWrite" style="display:none">
-            <div style="margin-bottom:35px" class="vra_field_rows">
+            <div style="margin-top:10px;padding-top:10px">
+                <label style="text-align:left;width:auto" class="vra_field_label">
+                    拜访人:
+                </label>
+                <input type="text" id="visitPerson" class="txtbox2" style="padding-top:5px; text-align: center;width:70%;">
                 <div>
-                    <label>拜访人:</label>
-                    <input type="text" id="visitPerson" />
-                </div>
-                <div>
-                    <label>拜访记录:</label>
-                    <input type="text" id="visitNote" />
+                    <div style="float:left"><label>拜访记录:</label></div>
+                    <textarea id="visitNote" style="width:70%;height:60px;"></textarea>
                 </div>
             </div>
         </div>
@@ -257,8 +238,7 @@
                 <input type="button" id="buttonUpdateFishin" style="display:none; position: relative;left:40%;right:40%" class="button blue" value="完 成" />
             </div>
         </div>
-        <div class="alignment-center font_common" style=" position:absolute;bottom:20px; left:10%; right:10%">Industry development and management</div>
+        <div class="alignment-center font_common" style="margin-top:20px; left:10%; right:10%">Industry development and management</div>
     </div>
 </body>
-<footer></footer>
 </html>

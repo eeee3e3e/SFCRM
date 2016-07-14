@@ -1,94 +1,78 @@
 /*define the color of the background*/
-.contextStyle
-{
-	background-color:#efefef;
+.contextStyle {
+    background-color: #efefef;
 }
 
 
 
-/*define the style of text element*/ 
-.input_text{  
-    background-color: #ffffff;  
-    border-color:#000000;   
-    border-style:solid;   
-    border-top-width:0px;   
-    border-right-width:0px;   
-    border-bottom-width:1px;   
-    border-left-width:0px; 
-    border-color: #eefeff 
-} 
+/*define the style of text element*/
+.input_text {
+    background-color: #ffffff;
+    border-color: black;
+    border-style: solid;
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 1px;
+    border-left-width: 0px;
+}
 
 /*define the font style of main framework*/
-.font_common
-{
-	font-family: "仿宋";
-	font-size: 10px;
-} 
+.font_common {
+    font-family: "仿宋";
+    font-size: 10px;
+}
 
 
 
-.font_hor_verti_center
-{
-	width:200px;height:200px;  /*设置div的大小*/
-	border:1px solid green;    /*边框*/
-	text-align: center;        /*文字水平居中对齐*/
-	line-height: 200px;        /*设置文字行距等于div的高度*/
-	overflow:hidden;
+.font_hor_verti_center {
+    width: 200px;
+    height: 200px; /*设置div的大小*/
+    border: 1px solid green; /*边框*/
+    text-align: center; /*文字水平居中对齐*/
+    line-height: 200px; /*设置文字行距等于div的高度*/
+    overflow: hidden;
 }
 
 
 /*define button style*/
-.blue.button, .blue.button:visited   	        
-	{ 
-		background-color: #2981e4; 
-	}
-	.blue.button:hover					
-	{ 
-		background-color: #2575cf; 
-	}
-
-.button, .button:visited 
-{
-	background: #222 url("../../Img/overlay.png") repeat-x; 
-	display: inline-block; 
-	padding: 5px 10px 6px; 
-	border:none;
-	color: #fff; 
-	text-decoration: none;
-	-moz-border-radius: 6px; 
-	-webkit-border-radius: 6px;
-	width:80px;
-	position: relative;
-	cursor:pointer;
-	
+.blue.button, .blue.button:visited {
+    background-color: #2981e4;
 }
-	
-.elementWidth
-{
-	width:90%;
+
+.button, .button:visited {
+    background: #222 url("/Images/overlay.png") repeat-x;
+    display: inline-block;
+    padding: 5px 10px 6px;
+    border: none;
+    color: #fff;
+    text-decoration: none;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    width: 80px;
+    position: relative;
+    cursor: pointer;
+}
+
+.elementWidth {
+    width: 90%;
 }
 
 
-.alignment-center
-{
-   text-align: center;
+.alignment-center {
+    text-align: center;
 }
 
 /* center display for both vertical and horizon */
-.vertical-center
-{
-  position: relative;
-  top: 20%;
-  bottom:20%;
-  
+.vertical-center {
+    position: relative;
+    top: 20%;
+    bottom: 20%;
 }
 
 /*add by lu jie*/
 /*顶端留白40%*/
-.vertical-center1
-{
-  position: relative;
-  top: 40%;
-  bottom:20%;
-  
+.vertical-center1 {
+    position: relative;
+    top: 40%;
+    bottom: 20%;
 }

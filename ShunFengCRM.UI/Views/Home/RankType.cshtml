@@ -18,20 +18,8 @@
     <link href="~/Content/CommonCss/css/base.css" rel="stylesheet">
     <!--cite javascript-->
     <script type="text/javascript" src="~/Scripts/CommonJs/js/jquery-3.0.0.min.js"></script>
-
-    <!-- Custom styles for this template -->
-    <!-- <link href="starter-template.css" rel="stylesheet"> -->
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <!-- <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
     <script type="text/javascript">
-        function GoRankDetial(strPosition)
-        {
+        function GoRankDetial(strPosition) {
             localStorage.setItem("strPosition", strPosition);
             window.location.href = "RankDetail";
         }
@@ -49,10 +37,7 @@
             <div class="fr vertical-center"><a href="/home/Mainfrm" class="Font_Color_w bold ">返回  &nbsp;&nbsp;  </a></div>
         </div>
         <div class="" style="height:15px">
-            <!-- Place holder-->
         </div>
-
-        <!-- personal information edit-->
         <div style="width:100%; height:250px;background-color#2575CF; text-align: center">
             <div id="div_area_manager" class="bluerow Font_Color_w largeFont" onclick="GoRankDetial('分部经理')"> 分部经理 </div>
             <div class="plaintrow">
@@ -67,29 +52,7 @@
             <div class="plaintrow">
             </div>
             <div id="div_sender" class="bluerow Font_Color_w largeFont" onclick="GoRankDetial('收派员')"> 收派员 </div>
-
         </div>
-        <div class="Absolute-Center">
-            <div style="height: 30px"></div>
-            <div id="btn_Modify" style="float: left">
-                <input type="button" class="button blue" value="完 成" />
-            </div>
-
-            <div id="btn_PlaceHolderLength" style="width:15px; float: left">
-                &nbsp;&nbsp;&nbsp;
-            </div>
-            <div id="btn_Cancel" style="float: left">
-                <input type="button" class="button blue" value="返 回" />
-            </div>
-        </div>
-        <!--
-        <div class="Font_Color_w fl" style="width:50%;text-align:center; bottom:50%; font-size:40px; height: 100px " >
-            91
-        </div>
-        <div class="fl ColorFrm fl" style="width:45%; font-size: 25px; border: 1px; ">
-            排名
-        </div>
-        -->
     </div>
     <div class="alignment-center font_common" style=" position:absolute;bottom:20px; left:10%; right:10%">Industry development and management</div>
 </body>
