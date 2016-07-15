@@ -52,15 +52,18 @@
         }
         function checkListItem() {
             var bChecked = 0;
-            $("div[name='RqDiv']").each(
+            $("label[name='RqDiv']").each(
                 function () {
                     if ($(this).hasClass("checkedbox")) {
-                        bChecked++;
+                        bChecked += 1;
                     }
-
                 }
             )
-
+            debugger;
+            if (bChecked == 0) {
+                alert("请选择需求");
+                return false;
+            }
             if ($("#txt_ClientName").val().trim() == "") {
                 alert("请输入客户名称");
                 return false;
